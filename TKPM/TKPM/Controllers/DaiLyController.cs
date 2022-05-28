@@ -45,5 +45,9 @@ namespace TKPM.Controllers
         {
             return View();
         }
+        public IActionResult TraCuuDaiLy()
+        {
+            return View("TraCuuDaiLy",null);
+        }
     }
 }
