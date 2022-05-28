@@ -27,19 +27,6 @@ namespace TKPM.Controllers
         {
             return View();
         }
-
-        public IActionResult ThemDaiLy()
-        {
-            return View();
-        }
-        public IActionResult DanhSachDaiLy()
-        {
-            return View();
-        }
-        public IActionResult ChiTietDaiLy()
-        {
-            return View();
-        }
         public IActionResult LichSuXuatHang ()
         {
             return View();
