@@ -1,0 +1,105 @@
+﻿@model TKPM.Models.DaiLy
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <!-- Default Basic Forms Start -->
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <h4 class="text-blue h4">Thêm đại lý</h4>
+                    </div>
+                </div>
+                <form method="post" asp-action="Create">
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label"  asp-for="TenDaiLy">Tên đại lý</label>
+                        <div class="col-sm-12 col-md-10">
+                            <input class="form-control"
+                                   type="text"
+                                   placeholder="" asp-for="TenDaiLy"/>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label" asp-for="LoaiDaiLy">Loại đại lý</label>
+                        <div class="col-sm-12 col-md-10">
+                            <select asp-for="LoaiDaiLy">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label" asp-for="DienThoaiDaiLy">Điện thoại</label>
+                        <div class="col-sm-12 col-md-10">
+                            <input class="form-control"
+                                   type="text"
+                                   placeholder="" asp-for="DienThoaiDaiLy"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label" asp-for="DiaChiDaiLy">Địa chỉ</label>
+                        <div class="col-sm-12 col-md-10">
+                            <input class="form-control"
+                                   type="text"
+                                   placeholder="" asp-for="DiaChiDaiLy"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label" asp-for="QuanDaiLy">Quận</label>
+                        <div class="col-sm-12 col-md-10">
+                            <select asp-for="QuanDaiLy">
+                              <option value="Quận 1">Quận 1</option>
+                              <option value="Quận 2">Quận 2</option>
+                              <option value="Quận 3">Quận 3</option>
+                              <option value="Quận 4">Quận 4</option>
+                              <option value="Quận 5">Quận 5</option>
+                              <option value="Quận 6">Quận 6</option>
+                              <option value="Quận 7">Quận 7</option>
+                              <option value="Quận 8">Quận 8</option>
+                              <option value="Quận 9">Quận 9</option>
+                              <option value="Quận 10">Quận 10</option>
+                              <option value="Quận 11">Quận 11</option>
+                              <option value="Quận 12">Quận 12</option>
+                              <option value="Quận Bình Tân">Quận Bình Tân</option>
+                              <option value="Quận Bình Thạnh">Quận Bình Thạnh</option>
+                              <option value="Quận Gò Vấp">Quận Gò Vấp</option>
+                              <option value="Quận Phú Nhuận">Quận Phú Nhuận</option>
+                              <option value="Quận Tân Bình">Quận Tân Bình</option>
+                              <option value="Quận Tân Phú">Quận Tân Phú</option>
+                              <option value="Quận Bình Chánh">Quận Bình Chánh</option>
+                              <option value="Quận Cần Giờ">Quận Cần Giờ</option>
+                              <option value="Quận Củ Chi">Quận Củ Chi</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label" asp-for="EmailDaiLy">Email</label>
+                        <div class="col-sm-12 col-md-10">
+                            <input class="form-control"
+                                   type="text"
+                                   placeholder="" asp-for="EmailDaiLy"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label" asp-for="MaNguoiQuanLy">MaNguoiQuanLy</label>
+                        <div class="col-sm-12 col-md-10">
+                            <input class="form-control"
+                                   type="text"
+                                   placeholder="" asp-for="MaNguoiQuanLy"/>
+                        </div>
+                    </div>
+                    <div class="center">
+                        <input type="submit" value="ThemDaiLy"
+                           class="btn btn-primary btn-sm scroll-click" />
+                    </div>
+                </form>
+                
+            </div>
+            <!-- Default Basic Forms End -->
+            <!-- horizontal Basic Forms Start -->
+
+        </div>

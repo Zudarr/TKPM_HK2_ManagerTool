@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using TKPM.Models
+@model IEnumerable<DaiLy>
+@{
+    ViewData["Title"] = "Danh sach dai ly";
 }
 
 
@@ -38,17 +40,17 @@
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix mb-20">
                     <div class="pull-left">
-                        <h4 class="text-blue h4">Basic Table</h4>
+                        <h4 class="text-blue h4">Danh sach dai ly</h4>
                         <p>Add class <code>.table</code></p>
                     </div>
                     <div class="pull-right">
-                        <a href="#basic-table" class="btn btn-primary btn-sm scroll-click" rel="content-y" data-toggle="collapse" role="button"><i class="fa fa-code"></i> Source Code</a>
+                        <a asp-area="" asp-controller="DaiLy" asp-action="ThemDaiLy" class="btn btn-primary btn-sm scroll-click"> Them Dai Ly</a>
                     </div>
                 </div>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">Mã đại lý</th>
                             <th scope="col">Tên</th>
                             <th scope="col">Loại</th>
                             <th scope="col">Điện thoại</th>
@@ -60,41 +62,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Đại lý 1</td>
-                            <td>1</td>
-                            <td>09283746183</td>
-                            <td>KTX B Dĩ An</td>
-                            <td>Dĩ An</td>
-                            <td>24/5/2022</td>
-                            <td>Sample@gmail.com</td>
+                        @foreach (var obj in Model)
+                        {
+                            <tr>
+                            <th>@obj.Id</th>
+                            <td>@obj.TenDaiLy</td>
+                            <td>@obj.LoaiDaiLy</td>
+                            <td>@obj.DienThoaiDaiLy</td>
+                            <td>@obj.DiaChiDaiLy</td>
+                            <td>@obj.QuanDaiLy</td>
+                            <td>@obj.NgayTiepNhan</td>
+                            <td>@obj.EmailDaiLy</td>
                             <td><span class="badge badge-primary">Chi tiết</span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Đại lý 1</td>
-                            <td>1</td>
-                            <td>09283746183</td>
-                            <td>KTX B Dĩ An</td>
-                            <td>Dĩ An</td>
-                            <td>24/5/2022</td>
-                            <td>Sample@gmail.com</td>
-                            <td><span class="badge badge-primary">Chi tiết</span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Đại lý 1</td>
-                            <td>1</td>
-                            <td>09283746183</td>
-                            <td>KTX B Dĩ An</td>
-                            <td>Dĩ An</td>
-                            <td>24/5/2022</td>
-                            <td>Sample@gmail.com</td>
-                            <td><span class="badge badge-primary">Chi tiết</span></td>
-                        </tr>
-
-
+                            </tr>
+                        }
                     </tbody>
                 </table>
 
