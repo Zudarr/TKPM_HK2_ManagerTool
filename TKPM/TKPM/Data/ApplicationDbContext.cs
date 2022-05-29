@@ -8,5 +8,6 @@ namespace TKPM.Data
         {
         }
         public DbSet<DaiLy> DaiLys { get; set; }
+        public DbSet<PhieuXuatHang> PhieuXuatHangs { get; set; }
     }
 }
