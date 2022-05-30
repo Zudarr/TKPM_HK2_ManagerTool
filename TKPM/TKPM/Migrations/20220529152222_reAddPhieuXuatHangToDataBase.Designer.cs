@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TKPM.Data;
 
 namespace TKPM.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220529152222_reAddPhieuXuatHangToDataBase")]
+    partial class reAddPhieuXuatHangToDataBase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,22 +28,14 @@ namespace TKPM.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("HangHoaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PhieuXuatHangId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SoLuong")
+                    b.Property<int?>("PhieuXuatHangID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HangHoaId");
+                    b.HasIndex("PhieuXuatHangID");
 
-                    b.HasIndex("PhieuXuatHangId");
-
-                    b.ToTable("ChiTietXuatHangs");
+                    b.ToTable("ChiTietXuatHang");
                 });
 
             modelBuilder.Entity("TKPM.Models.DaiLy", b =>
@@ -89,30 +83,6 @@ namespace TKPM.Migrations
                     b.ToTable("DaiLys");
                 });
 
-            modelBuilder.Entity("TKPM.Models.HangHoa", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("DonGia")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DonViTinh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SoLuongTrongKho")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TenHang")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("HangHoas");
-                });
-
             modelBuilder.Entity("TKPM.Models.PhieuXuatHang", b =>
                 {
                     b.Property<int>("ID")
@@ -120,47 +90,22 @@ namespace TKPM.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DaiLyId")
-                        .HasColumnType("int");
+                    b.Property<string>("DaiLy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("NgayLapPhieuXuatHang")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("DaiLyId");
-
                     b.ToTable("PhieuXuatHangs");
                 });
 
             modelBuilder.Entity("TKPM.Models.ChiTietXuatHang", b =>
                 {
-                    b.HasOne("TKPM.Models.HangHoa", "HangHoa")
-                        .WithMany()
-                        .HasForeignKey("HangHoaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TKPM.Models.PhieuXuatHang", "PhieuXuatHang")
+                    b.HasOne("TKPM.Models.PhieuXuatHang", null)
                         .WithMany("ChiTietXuatHangs")
-                        .HasForeignKey("PhieuXuatHangId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("HangHoa");
-
-                    b.Navigation("PhieuXuatHang");
-                });
-
-            modelBuilder.Entity("TKPM.Models.PhieuXuatHang", b =>
-                {
-                    b.HasOne("TKPM.Models.DaiLy", "DaiLy")
-                        .WithMany()
-                        .HasForeignKey("DaiLyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DaiLy");
+                        .HasForeignKey("PhieuXuatHangID");
                 });
 
             modelBuilder.Entity("TKPM.Models.PhieuXuatHang", b =>

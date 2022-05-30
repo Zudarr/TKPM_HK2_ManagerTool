@@ -1,0 +1,89 @@
+﻿@using TKPM.Models
+@model IEnumerable<PhieuXuatHang>
+@{
+    ViewData["Title"] = "Danh sach dai ly";
+}
+
+
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <div class="page-header">
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="title">
+                            <h4>Basic Tables</h4>
+                        </div>
+                        <nav aria-label="breadcrumb" role="navigation">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Basic Tables</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 col-sm-12 text-right">
+                        <div class="dropdown">
+                            <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                January 2018
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">Export List</a>
+                                <a class="dropdown-item" href="#">Policies</a>
+                                <a class="dropdown-item" href="#">View Assets</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- basic table  Start -->
+            @if(Model.Count()>0){
+                @foreach(var obj in Model){
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix mb-20">
+                    <div class="pull-left">
+                        <h4 class="text-blue h4">Lich su xuat hang</h4>
+                        <p>Đại lý:</p>
+                        <p>Ngày lập phiếu:</p>
+                    </div>
+                    <div class="pull-right">
+                        <a asp-area="" asp-controller="DaiLy" asp-action="ThemDaiLy" class="btn btn-primary btn-sm scroll-click"> Them Dai Ly</a>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Stt</th>
+                            <th scope="col">Mặt hàng</th>
+                            <th scope="col">Đơn vị tính</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Đơn giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @*@foreach (var obj in Model)
+                        {
+                        <tr>
+                            <th>@obj.Id</th>
+                            <td>@obj.TenDaiLy</td>
+                            <td>@obj.LoaiDaiLy</td>
+                            <td>@obj.DienThoaiDaiLy</td>
+                            <td>@obj.DiaChiDaiLy</td>
+                            <td>@obj.QuanDaiLy</td>
+                            <td>@obj.NgayTiepNhan</td>
+                            <td>@obj.EmailDaiLy</td>
+                            <td><span class="badge badge-primary">Chi tiết</span></td>
+                        </tr>
+                        }*@
+                    </tbody>
+                </table>
+            </div>
+
+                }
+            }
+            <!-- basic table  End -->
+        </div>
+
+    </div>
+</div>
