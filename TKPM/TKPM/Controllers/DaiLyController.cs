@@ -79,5 +79,9 @@ namespace TKPM.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public IActionResult TraCuuDaiLy()
+        {
+            return View("TraCuuDaiLy",null);
+        }
     }
 }

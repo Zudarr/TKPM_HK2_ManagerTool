@@ -1,5 +1,5 @@
 ﻿@using TKPM.Models
-@model IEnumerable<DaiLy>
+@model IEnumerable<PhieuXuatHang>
 @{
     ViewData["Title"] = "Danh sach dai ly";
 }
@@ -41,7 +41,7 @@
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix mb-20">
                     <div class="pull-left">
-                        <h4 class="text-blue h4">Danh sach dai ly</h4>
+                        <h4 class="text-blue h4">Lịch sử xuất hàng</h4>
                         <p>Add class <code>.table</code></p>
                     </div>
                     <div class="pull-right">
@@ -51,14 +51,9 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Mã đại lý</th>
-                            <th scope="col">Tên</th>
-                            <th scope="col">Loại</th>
-                            <th scope="col">Điện thoại</th>
-                            <th scope="col">Địa chỉ</th>
-                            <th scope="col">Quận</th>
-                            <th scope="col">Ngày tiếp nhận</th>
-                            <th scope="col">Email</th>
+                            <th scope="col">Stt</th>
+                            <th scope="col">Đại lý</th>
+                            <th scope="col">Ngày lập phiếu</th>
                             <th scope="col">Chi tiết</th>
                         </tr>
                     </thead>
@@ -66,17 +61,10 @@
                         @foreach (var obj in Model)
                         {
                             <tr>
-                            <th>@obj.Id</th>
-                            <td>@obj.TenDaiLy</td>
-                            <td>@obj.LoaiDaiLy</td>
-                            <td>@obj.DienThoaiDaiLy</td>
-                            <td>@obj.DiaChiDaiLy</td>
-                            <td>@obj.QuanDaiLy</td>
-                            <td>@obj.NgayTiepNhan</td>
-                            <td>@obj.EmailDaiLy</td>
-                            <td>
-                                <a asp-area="" asp-controller="DaiLy" asp-action="ChiTietDaiLy" asp-route-Id="@obj.Id" class="btn btn-primary btn-sm scroll-click">Chi Tiết</a>
-                            </td>
+                            <th>@obj.ID</th>
+                            <td>@obj.DaiLy.TenDaiLy</td>
+                            <td>@obj.NgayLapPhieuXuatHang</td>
+                            <td><span class="badge badge-primary">Xem</span></td>
                             </tr>
                         }
                     </tbody>
