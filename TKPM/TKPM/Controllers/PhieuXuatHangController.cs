@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,10 @@ namespace TKPM.Controllers
 
         public IActionResult LichSuXuatHang()
         {
-            IEnumerable<PhieuXuatHang> PhieuXuatHangList = _db.PhieuXuatHangs;
+            //IEnumerable<PhieuXuatHang> PhieuXuatHangList = ChiTietXuatHangs.Where(c => c.PhieuXuatHangId == 5).Include(c => c.HangHoa)
+            IEnumerable<PhieuXuatHang> PhieuXuatHangList = _db.PhieuXuatHangs.Include(c => c.DaiLy);
             return View(PhieuXuatHangList);
+            //return View();
         }
     }
 }

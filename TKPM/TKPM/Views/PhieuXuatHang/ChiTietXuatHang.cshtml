@@ -38,11 +38,14 @@
                 </div>
             </div>
             <!-- basic table  Start -->
+            @if(Model.Count()>0){
+                @foreach(var obj in Model){
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix mb-20">
                     <div class="pull-left">
-                        <h4 class="text-blue h4">Lịch sử xuất hàng</h4>
-                        <p>Add class <code>.table</code></p>
+                        <h4 class="text-blue h4">Lich su xuat hang</h4>
+                        <p>Đại lý:</p>
+                        <p>Ngày lập phiếu:</p>
                     </div>
                     <div class="pull-right">
                         <a asp-area="" asp-controller="DaiLy" asp-action="ThemDaiLy" class="btn btn-primary btn-sm scroll-click"> Them Dai Ly</a>
@@ -52,25 +55,33 @@
                     <thead>
                         <tr>
                             <th scope="col">Stt</th>
-                            <th scope="col">Đại lý</th>
-                            <th scope="col">Ngày lập phiếu</th>
-                            <th scope="col">Chi tiết</th>
+                            <th scope="col">Mặt hàng</th>
+                            <th scope="col">Đơn vị tính</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Đơn giá</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var obj in Model)
+                        @*@foreach (var obj in Model)
                         {
-                            <tr>
-                            <th>@obj.ID</th>
-                            <td>@obj.DaiLy.TenDaiLy</td>
-                            <td>@obj.NgayLapPhieuXuatHang</td>
-                            <td><span class="badge badge-primary">Xem</span></td>
-                            </tr>
-                        }
+                        <tr>
+                            <th>@obj.Id</th>
+                            <td>@obj.TenDaiLy</td>
+                            <td>@obj.LoaiDaiLy</td>
+                            <td>@obj.DienThoaiDaiLy</td>
+                            <td>@obj.DiaChiDaiLy</td>
+                            <td>@obj.QuanDaiLy</td>
+                            <td>@obj.NgayTiepNhan</td>
+                            <td>@obj.EmailDaiLy</td>
+                            <td><span class="badge badge-primary">Chi tiết</span></td>
+                        </tr>
+                        }*@
                     </tbody>
                 </table>
-
             </div>
+
+                }
+            }
             <!-- basic table  End -->
         </div>
 

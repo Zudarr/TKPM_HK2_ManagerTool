@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TKPM.Data;
 
 namespace TKPM.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220530030327_add-tables")]
+    partial class addtables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,8 +101,8 @@ namespace TKPM.Migrations
                     b.Property<int>("DonGia")
                         .HasColumnType("int");
 
-                    b.Property<string>("DonViTinh")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DonViTinh")
+                        .HasColumnType("int");
 
                     b.Property<int>("SoLuongTrongKho")
                         .HasColumnType("int");
