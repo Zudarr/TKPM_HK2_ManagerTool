@@ -74,7 +74,9 @@
                             <td>@obj.QuanDaiLy</td>
                             <td>@obj.NgayTiepNhan</td>
                             <td>@obj.EmailDaiLy</td>
-                            <td><span class="badge badge-primary">Chi tiết</span></td>
+                            <td>
+                                <a asp-area="" asp-controller="DaiLy" asp-action="ChiTietDaiLy" asp-route-Id="@obj.Id" class="btn btn-primary btn-sm scroll-click">Chi Tiết</a>
+                            </td>
                             </tr>
                         }
                     </tbody>

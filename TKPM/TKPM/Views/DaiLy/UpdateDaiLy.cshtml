@@ -10,10 +10,10 @@
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix">
                     <div class="pull-left">
-                        <h4 class="text-blue h4">Thêm đại lý</h4>
+                        <h4 class="text-blue h4">Cập nhật thông tin đại lý</h4>
                     </div>
                 </div>
-                <form method="post" asp-action="Create">
+                <form method="post" asp-action="Update">
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-2 col-form-label"  asp-for="TenDaiLy">Tên đại lý</label>
                         <div class="col-sm-12 col-md-10">
@@ -93,11 +93,11 @@
                         </div>
                     </div>
                     <div class="center">
-                        <input type="submit" value="ThemDaiLy"
+                        <input type="submit" value="Update"
                            class="btn btn-primary btn-sm scroll-click" />
-                        <a class="btn btn-primary btn-sm scroll-click" asp-action="Index">Quay ve</a>
                     </div>
                 </form>
+                
             </div>
         </div>
     </div>

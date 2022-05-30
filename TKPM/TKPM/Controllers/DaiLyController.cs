@@ -36,14 +36,48 @@ namespace TKPM.Controllers
             obj.NoDau = 0;
             obj.NoCuoi = 0;
             obj.PhatSinh = 0;
+
             _db.DaiLys.Add(obj);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        public IActionResult ChiTietDaiLy()
+        public IActionResult ChiTietDaiLy(int ?id)
         {
-            return View();
+            if(id == null||id==0)
+            {
+                return NotFound();
+            }
+            DaiLy daiLyTruyXuat= _db.DaiLys.FirstOrDefault(x => x.Id == id);
+            return View("ChiTietDaiLy",daiLyTruyXuat);
+        }
+
+        public IActionResult Update(int ?id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            DaiLy daiLyTruyXuat = _db.DaiLys.FirstOrDefault(x => x.Id == id);
+            return View("UpdateDaiLy", daiLyTruyXuat);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Update(DaiLy obj)
+        {
+            _db.DaiLys.Update(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+        public IActionResult Delete(int? id)
+        {
+            DaiLy daiLyXoa = _db.DaiLys.FirstOrDefault(x => x.Id == id);
+            _db.DaiLys.Remove(daiLyXoa);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
         public IActionResult TraCuuDaiLy()
         {
