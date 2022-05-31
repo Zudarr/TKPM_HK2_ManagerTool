@@ -11,6 +11,8 @@ namespace TKPM.Data
         public DbSet<PhieuXuatHang> PhieuXuatHangs { get; set; }
         public DbSet<ChiTietXuatHang> ChiTietXuatHangs { get; set; }
         public DbSet<HangHoa> HangHoas { get; set; }
+        public DbSet<TaiKhoan> TaiKhoans { get; set; }
+        public DbSet<PhieuThuTien> PhieuThuTiens { get; set; }
 
     }
 }
