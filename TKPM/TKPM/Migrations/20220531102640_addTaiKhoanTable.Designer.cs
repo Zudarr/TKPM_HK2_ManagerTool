@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TKPM.Data;
 
 namespace TKPM.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220531102640_addTaiKhoanTable")]
+    partial class addTaiKhoanTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -111,30 +113,6 @@ namespace TKPM.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("HangHoas");
-                });
-
-            modelBuilder.Entity("TKPM.Models.PhieuThuTien", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("IdDaiLy")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdNguoiThuTien")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("NgayThuTien")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("SoTienThu")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PhieuThuTiens");
                 });
 
             modelBuilder.Entity("TKPM.Models.PhieuXuatHang", b =>
