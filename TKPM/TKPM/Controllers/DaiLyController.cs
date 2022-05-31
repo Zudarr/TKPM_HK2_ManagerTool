@@ -79,9 +79,23 @@ namespace TKPM.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
-        public IActionResult TraCuuDaiLy()
+        [HttpGet]
+        public IActionResult TraCuuDaiLy(string name, string district)
         {
-            return View("TraCuuDaiLy",null);
+            if (string.IsNullOrEmpty(name))
+            {
+                var daiLyTim0Ten = _db.DaiLys
+                    .Where(d => (d.QuanDaiLy == district))
+                    .ToList();
+                return View("TraCuuDaiLy", daiLyTim0Ten);
+            }
+            var daiLyTim = _db.DaiLys
+                    .Where(d => (d.TenDaiLy.Contains(name) && d.QuanDaiLy == district))
+                    .ToList();
+            return View("TraCuuDaiLy", daiLyTim);
+
+            //var daiLyTim = _db.DaiLys.Where(d => d.TenDaiLy.Contains(name)).ToList();
+            //return View("TraCuuDaiLy", daiLyTim);
         }
     }
 }
