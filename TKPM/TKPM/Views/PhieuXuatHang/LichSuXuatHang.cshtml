@@ -55,6 +55,7 @@
                             <th scope="col">Đại lý</th>
                             <th scope="col">Ngày lập phiếu</th>
                             <th scope="col">Chi tiết</th>
+                            <th scope="col">Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,7 +65,8 @@
                             <th>@obj.ID</th>
                             <td>@obj.DaiLy.TenDaiLy</td>
                             <td>@obj.NgayLapPhieuXuatHang</td>
-                            <td><span class="badge badge-primary">Xem</span></td>
+                            <td><a class="btn btn-primary btn-sm scroll-click" asp-controller="PhieuXuatHang" asp-action="Edit" asp-route-Id="@obj.ID">Chi Tiết</a></td>
+                            <td><a class="btn btn-primary btn-sm scroll-click" asp-controller="PhieuXuatHang" asp-action="Delete" asp-route-Id="@obj.ID">Xóa</a></td>
                             </tr>
                         }
                     </tbody>
