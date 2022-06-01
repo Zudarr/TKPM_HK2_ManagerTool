@@ -13,7 +13,6 @@ namespace TKPM.Models
         public int PhieuXuatHangId { get; set; }
         public HangHoa HangHoa { get; set; }
         public int HangHoaId { get; set; }
-
         public int SoLuong { get; set; }
     }
 }
