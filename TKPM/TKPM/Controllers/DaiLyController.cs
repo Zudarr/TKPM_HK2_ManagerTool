@@ -80,22 +80,22 @@ namespace TKPM.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
-        public IActionResult TraCuuDaiLy(string name, string district)
+        public IActionResult TraCuuDaiLy(string input, string isDistrictOrName)
         {
-            if (string.IsNullOrEmpty(name))
+            if (isDistrictOrName == "name")
             {
-                var daiLyTim0Ten = _db.DaiLys
-                    .Where(d => (d.QuanDaiLy == district))
+                var daiLyTen = _db.DaiLys
+                    .Where(d => d.TenDaiLy.Contains(input))
                     .ToList();
-                return View("TraCuuDaiLy", daiLyTim0Ten);
+                return View("TraCuuDaiLy", daiLyTen);
             }
-            var daiLyTim = _db.DaiLys
-                    .Where(d => (d.TenDaiLy.Contains(name) && d.QuanDaiLy == district))
+            else
+            {
+                var daiLyQuan = _db.DaiLys
+                    .Where(d => d.QuanDaiLy.Contains(input))
                     .ToList();
-            return View("TraCuuDaiLy", daiLyTim);
-
-            //var daiLyTim = _db.DaiLys.Where(d => d.TenDaiLy.Contains(name)).ToList();
-            //return View("TraCuuDaiLy", daiLyTim);
+                return View("TraCuuDaiLy", daiLyQuan);
+            }
         }
     }
 }
