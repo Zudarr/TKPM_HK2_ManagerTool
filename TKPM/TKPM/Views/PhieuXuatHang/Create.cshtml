@@ -1,0 +1,66 @@
+﻿@model TKPM.Models.PhieuXuatHang
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <!-- Default Basic Forms Start -->
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <h4 class="text-blue h4">Thêm phiếu xuất hàng</h4>
+                    </div>
+                </div>
+                <form method="post" asp-action="Create">
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label" asp-for="DaiLyId">Id đại lý: </label>
+                        <div class="col-sm-12 col-md-10">
+                            <input class="form-control"
+                                   type="text"
+                                   placeholder="" asp-for="DaiLyId" />
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Stt</th>
+                                <th scope="col">Mặt hàng</th>
+                                <th scope="col">Đơn vị tính</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Đơn giá</th>
+                                <th scope="col">Nợ</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @for (int i = 0; i < @Model.ChiTietXuatHangs.Count(); i++)
+                            {
+                                <input type="hidden" asp-for="@Model.ChiTietXuatHangs[i].HangHoaId">
+                                <tr>
+                                    <th>@i</th>
+                                    <td>@Model.ChiTietXuatHangs[i].HangHoa.TenHang</td>
+                                    <td>@Model.ChiTietXuatHangs[i].HangHoa.DonViTinh</td>
+                                    <td><input type="number" asp-for="@Model.ChiTietXuatHangs[i].SoLuong"></td>
+                                    <td>@Model.ChiTietXuatHangs[i].HangHoa.DonGia</td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+                    <div class="center">
+                        <input type="submit" value="Create"
+                               class="btn btn-primary btn-sm scroll-click" />
+                        <a class="btn btn-primary btn-sm scroll-click" asp-action="Index">Quay ve</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

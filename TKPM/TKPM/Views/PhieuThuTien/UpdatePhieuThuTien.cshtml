@@ -1,0 +1,53 @@
+﻿@model TKPM.Models.PhieuThuTien
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <!-- Default Basic Forms Start -->
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <h4 class="text-blue h4">Update phiếu thu tiền</h4>
+                    </div>
+                </div>
+                <form method="post" asp-action="Update">
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label"  asp-for="IdDaiLy">Đại lý</label>
+                        <div class="col-sm-12 col-md-10">
+                            <input class="form-control"
+                                   type="text"
+                                   placeholder="" asp-for="IdDaiLy"/>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label"  asp-for="IdNguoiThuTien">Người tạo phiếu thu</label>
+                        <div class="col-sm-12 col-md-10">
+                            <input class="form-control"
+                                   type="text"
+                                   placeholder="" asp-for="IdNguoiThuTien"/>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label"  asp-for="SoTienThu">Số tiền thu</label>
+                        <div class="col-sm-12 col-md-10">
+                            <input class="form-control"
+                                   type="text"
+                                   placeholder="" asp-for="SoTienThu"/>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="center">
+                        <input type="submit" value="Cập nhật phiếu thu tiền"
+                           class="btn btn-primary btn-sm scroll-click" />
+                        <a class="btn btn-primary btn-sm scroll-click" asp-action="Index">Quay về</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

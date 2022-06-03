@@ -1,7 +1,7 @@
 ﻿@using TKPM.Models
-@model IEnumerable<PhieuXuatHang>
+@model IEnumerable<PhieuThuTien>
 @{
-    ViewData["Title"] = "Danh sach dai ly";
+    ViewData["Title"] = "Lich su phieu thu tien";
 }
 
 
@@ -38,50 +38,44 @@
                 </div>
             </div>
             <!-- basic table  Start -->
-            @if(Model.Count()>0){
-                @foreach(var obj in Model){
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix mb-20">
                     <div class="pull-left">
-                        <h4 class="text-blue h4">Lich su xuat hang</h4>
-                        <p>Đại lý:</p>
-                        <p>Ngày lập phiếu:</p>
+                        <h4 class="text-blue h4">Lịch sử thu tiền</h4>
+                        <p>Add class <code>.table</code></p>
                     </div>
                     <div class="pull-right">
-                        <a asp-area="" asp-controller="DaiLy" asp-action="ThemDaiLy" class="btn btn-primary btn-sm scroll-click"> Them Dai Ly</a>
+                        <a asp-area="" asp-controller="PhieuThuTien" asp-action="LapPhieuThuTien" class="btn btn-primary btn-sm scroll-click"> Lập phiếu thu tiền</a>
                     </div>
                 </div>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Stt</th>
-                            <th scope="col">Mặt hàng</th>
-                            <th scope="col">Đơn vị tính</th>
-                            <th scope="col">Số lượng</th>
-                            <th scope="col">Đơn giá</th>
+                            <th scope="col">Mã phiếu</th>
+                            <th scope="col">Mã đại lý</th>
+                            <th scope="col">Ngày lập phiếu</th>
+                            <th scope="col">Người lập phiếu</th>
+                            <th scope="col">Số tiền thu</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @*@foreach (var obj in Model)
+                        @foreach (var obj in Model)
                         {
-                        <tr>
+                            <tr>
                             <th>@obj.Id</th>
-                            <td>@obj.TenDaiLy</td>
-                            <td>@obj.LoaiDaiLy</td>
-                            <td>@obj.DienThoaiDaiLy</td>
-                            <td>@obj.DiaChiDaiLy</td>
-                            <td>@obj.QuanDaiLy</td>
-                            <td>@obj.NgayTiepNhan</td>
-                            <td>@obj.EmailDaiLy</td>
-                            <td><span class="badge badge-primary">Chi tiết</span></td>
-                        </tr>
-                        }*@
+                            <td>@obj.IdDaiLy</td>
+                            <td>@obj.NgayThuTien</td>
+                            <td>@obj.IdNguoiThuTien</td>
+                            <td>@obj.SoTienThu</td>
+                            <td>
+                                <a asp-area="" asp-controller="PhieuThuTien" asp-action="ChiTietThuTien" asp-route-Id="@obj.Id" class="btn btn-primary btn-sm scroll-click">Chi Tiết</a>
+                            </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
-            </div>
 
-                }
-            }
+            </div>
             <!-- basic table  End -->
         </div>
 
