@@ -44,10 +44,15 @@ namespace TKPM.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(PhieuXuatHang obj)
         {
-            var result=_db.Add(new PhieuXuatHang() { DaiLyId = obj.DaiLyId });
-            _db.SaveChanges();
+            //Tính lại tổng tiền của phiếu
+            int TongTriGia = 0;
+            foreach (ChiTietXuatHang chiTietXuatHang in obj.ChiTietXuatHangs)
+            {
+                TongTriGia += chiTietXuatHang.SoLuong * chiTietXuatHang.HangHoa.DonGia;
+            }
 
-            System.Diagnostics.Debug.WriteLine(result);
+            var result=_db.Add(new PhieuXuatHang() { DaiLyId = obj.DaiLyId ,TongTriGia=TongTriGia});
+            _db.SaveChanges();
 
             for (int i = 0; i < obj.ChiTietXuatHangs.Count(); i++)
             {
@@ -77,7 +82,14 @@ namespace TKPM.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(PhieuXuatHang obj)
         {
-            var result = _db.Update(new PhieuXuatHang() { DaiLyId = obj.DaiLyId ,ID=obj.ID,NgayLapPhieuXuatHang=obj.NgayLapPhieuXuatHang});
+            //Tính lại tổng tiền của phiếu
+            int TongTriGia = 0;
+            foreach (ChiTietXuatHang chiTietXuatHang in obj.ChiTietXuatHangs)
+            {
+                TongTriGia += chiTietXuatHang.SoLuong * chiTietXuatHang.HangHoa.DonGia;
+            }
+
+            var result = _db.Update(new PhieuXuatHang() { DaiLyId = obj.DaiLyId ,ID=obj.ID,NgayLapPhieuXuatHang=obj.NgayLapPhieuXuatHang,TongTriGia= TongTriGia});
             _db.SaveChanges();
 
             for (int i = 0; i < obj.ChiTietXuatHangs.Count(); i++)

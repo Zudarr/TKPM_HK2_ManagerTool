@@ -16,6 +16,7 @@ namespace TKPM.Models
         public int DaiLyId { get; set; }
         public DateTime NgayLapPhieuXuatHang { get; set; } = DateTime.Now;
         public List<ChiTietXuatHang> ChiTietXuatHangs { get; set; }
+        public int TongTriGia { get; set; }
 
     }
 }

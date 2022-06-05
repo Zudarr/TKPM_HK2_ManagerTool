@@ -11,7 +11,7 @@
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix">
                     <div class="pull-left">
-                        <h4 class="text-blue h4">Thêm phiếu xuất hàng</h4>
+                        <h4 class="text-blue h4">Chi tiết phiếu xuất hàng</h4>
                     </div>
                 </div>
                 <form method="post" >
@@ -36,13 +36,14 @@
                                 <th scope="col">Nợ</th>
                             </tr>
                         </thead>
-
+                        <input type="hidden" asp-for="@Model.NgayLapPhieuXuatHang">
                         <tbody>
                             @for (int i = 0; i < @Model.ChiTietXuatHangs.Count(); i++)
                             {
                                 <input type="hidden" asp-for="@Model.ChiTietXuatHangs[i].HangHoaId">
                                 <input type="hidden" asp-for="@Model.ChiTietXuatHangs[i].Id">
                                 <input type="hidden" asp-for="@Model.ChiTietXuatHangs[i].PhieuXuatHangId">
+                                <input type="hidden" asp-for="@Model.ChiTietXuatHangs[i].HangHoa.DonGia">
                                 <tr>
                                     <th>@i</th>
                                     <td>@Model.ChiTietXuatHangs[i].HangHoa.TenHang</td>
