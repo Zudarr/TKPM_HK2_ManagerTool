@@ -17,9 +17,7 @@ namespace TKPM.Models
         public string QuanDaiLy { get; set; }
         public DateTime NgayTiepNhan { get; set; }
         public string EmailDaiLy { get; set; }
-        public int NoDau { get; set; }
-        public int PhatSinh { get; set; }
-        public int NoCuoi { get; set; }
+        public int NoHienTai { get; set; }
         public int MaNguoiQuanLy { get; set; }
 }
 }
