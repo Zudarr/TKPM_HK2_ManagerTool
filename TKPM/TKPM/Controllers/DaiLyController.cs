@@ -32,9 +32,9 @@ namespace TKPM.Controllers
         public IActionResult Create(DaiLy obj)
         {
             obj.NgayTiepNhan = System.DateTime.Now;
-            obj.NoDau = 0;
-            obj.NoCuoi = 0;
-            obj.PhatSinh = 0;
+            //obj.NoDau = 0;
+            //obj.NoCuoi = 0;
+            //obj.PhatSinh = 0;
 
             _db.DaiLys.Add(obj);
             _db.SaveChanges();

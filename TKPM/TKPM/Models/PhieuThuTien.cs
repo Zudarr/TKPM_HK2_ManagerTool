@@ -11,7 +11,7 @@ namespace TKPM.Models
         public int Id { get; set; }
         public int IdNguoiThuTien{ get; set; }
         public int IdDaiLy { get; set; }
-        public DateTime NgayThuTien { get; set; }
+        public DateTime NgayThuTien { get; set; } = DateTime.Now;
         public int SoTienThu { get; set; }
     }
 }
