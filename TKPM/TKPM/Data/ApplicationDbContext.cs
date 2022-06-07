@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TKPM.Models;
 namespace TKPM.Data
 {
-    public class ApplicationDbContext: DbContext
+    public class ApplicationDbContext: IdentityDbContext<IdentityUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         {
@@ -11,7 +13,7 @@ namespace TKPM.Data
         public DbSet<PhieuXuatHang> PhieuXuatHangs { get; set; }
         public DbSet<ChiTietXuatHang> ChiTietXuatHangs { get; set; }
         public DbSet<HangHoa> HangHoas { get; set; }
-        public DbSet<TaiKhoan> TaiKhoans { get; set; }
+        public DbSet<ApplicationUser> TaiKhoans { get; set; }
         public DbSet<PhieuThuTien> PhieuThuTiens { get; set; }
 
     }

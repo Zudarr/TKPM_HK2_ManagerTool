@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TKPM.Data;
 
 namespace TKPM.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220607093433_removeMatKhau")]
+    partial class removeMatKhau
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -271,7 +273,13 @@ namespace TKPM.Migrations
                     b.Property<DateTime>("NgayTiepNhan")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("NoHienTai")
+                    b.Property<int>("NoCuoi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NoDau")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PhatSinh")
                         .HasColumnType("int");
 
                     b.Property<string>("QuanDaiLy")
@@ -345,9 +353,6 @@ namespace TKPM.Migrations
 
                     b.Property<DateTime>("NgayLapPhieuXuatHang")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("TongTriGia")
-                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
