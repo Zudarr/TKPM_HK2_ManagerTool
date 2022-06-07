@@ -80,29 +80,21 @@ namespace TKPM.Controllers
         }
 
         [HttpGet]
-        public IActionResult TraCuuDaiLy(string input, string isDistrictOrName)
+        public IActionResult TraCuuDaiLy(string name, string district)
         {
             var daiLys = from d in _db.DaiLys select d;
-            if (!string.IsNullOrEmpty(input))
+            if (!string.IsNullOrEmpty(name))
             {
-                if (isDistrictOrName == "name")
-                {
-                    daiLys = daiLys.Where(d => d.TenDaiLy.Contains(input));
-                }
-                else
-                {
-                    daiLys = daiLys.Where(d => d.QuanDaiLy.Contains(input));
-                }
-                return View(daiLys.ToList());
+                daiLys = daiLys.Where(d => d.TenDaiLy.Contains(name));
             }
-            else
+            if (!string.IsNullOrEmpty(district))
             {
-                return View(daiLys.ToList());
+                daiLys = daiLys.Where(d => d.QuanDaiLy == district);
             }
-            
+            return View(daiLys);
         }
 
-        public IActionResult Sort(string sortOrder)
+        public IActionResult Sort(string sortOrder, int type)
         {
             ViewBag.MaSortParm = string.IsNullOrEmpty(sortOrder) ? "MaDaiLy_desc" : "";
             ViewBag.TenSortParm = sortOrder == "TenDaiLy" ? "TenDaily_desc" : "TenDaiLy";
@@ -120,7 +112,12 @@ namespace TKPM.Controllers
                 "NgayDaiLy" => daiLys.OrderBy(d => d.NgayTiepNhan),
                 _ => daiLys.OrderBy(d => d.Id),
             };
-            return View("DanhSachDaiLy", daiLys);
+            return type switch
+            {
+                1 => View("DanhSachDaiLy", daiLys),
+                2 => View("TraCuuDaiLy", daiLys),
+                _ => View("DanhSachDaiLy", daiLys),
+            };
         }
     }
 }
