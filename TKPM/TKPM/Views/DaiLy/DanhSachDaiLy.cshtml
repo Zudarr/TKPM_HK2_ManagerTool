@@ -52,13 +52,13 @@
                     <thead>
                         <tr>
                             <th scope="col">
-                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.MaSortParm})">
+                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.MaSortParm, type = 2})">
                                     Mã đại lý
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
                             <th scope="col">
-                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.TenSortParm})">
+                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.TenSortParm, type = 2})">
                                     Tên đại lý
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
@@ -67,13 +67,13 @@
                             <th scope="col">Điện thoại</th>
                             <th scope="col">Địa chỉ</th>
                             <th scope="col">
-                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.QuanSortParm})">
+                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.QuanSortParm, type = 2})">
                                     Quận
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
                             </th>
                             <th scope="col">
-                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.NgaySortParm})">
+                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.NgaySortParm, type = 2})">
                                     Ngày tiếp nhận
                                     <i class="fa-solid fa-sort"></i>
                                 </a>
@@ -101,7 +101,6 @@
                         }
                     </tbody>
                 </table>
-
             </div>
             <!-- basic table  End -->
         </div>

@@ -44,12 +44,41 @@
                             <h4 class="text-blue h4">Tra cứu</h4>
                         </div>
                         <div class="input-group mb-3">
-                            <div style="width:500px">
-                                <input type="search" class="form-control" aria-label="Username" name="input">
+                            <div class="form-group row">
+                                <label class="col-sm-12 col-md-2 col-form-label">Chọn quận</label>
+                                <div class="col-sm-12 col-md-10">
+                                    <select name="district">
+                                        <option value="Quận 1">Quận 1</option>
+                                        <option value="Quận 2">Quận 2</option>
+                                        <option value="Quận 3">Quận 3</option>
+                                        <option value="Quận 4">Quận 4</option>
+                                        <option value="Quận 5">Quận 5</option>
+                                        <option value="Quận 6">Quận 6</option>
+                                        <option value="Quận 7">Quận 7</option>
+                                        <option value="Quận 8">Quận 8</option>
+                                        <option value="Quận 9">Quận 9</option>
+                                        <option value="Quận 10">Quận 10</option>
+                                        <option value="Quận 11">Quận 11</option>
+                                        <option value="Quận 12">Quận 12</option>
+                                        <option value="Quận Bình Tân">Quận Bình Tân</option>
+                                        <option value="Quận Bình Thạnh">Quận Bình Thạnh</option>
+                                        <option value="Quận Gò Vấp">Quận Gò Vấp</option>
+                                        <option value="Quận Phú Nhuận">Quận Phú Nhuận</option>
+                                        <option value="Quận Tân Bình">Quận Tân Bình</option>
+                                        <option value="Quận Tân Phú">Quận Tân Phú</option>
+                                        <option value="Quận Bình Chánh">Quận Bình Chánh</option>
+                                        <option value="Quận Cần Giờ">Quận Cần Giờ</option>
+                                        <option value="Quận Củ Chi">Quận Củ Chi</option>
+                                        <option value="">Tất cả các quận</option>
+                                    </select>
+                                </div>
                             </div>
-                            <input type="submit" class="btn btn-primary"/>
+                            <div style="width:500px">
+                                <input type="search" class="form-control" aria-label="Username" name="name">
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Tìm kiếm"/>
                         </div>
-                        <div class="form-check">
+                        @*<div class="form-check">
                             <input class="form-check-input" type="radio" name="isDistrictOrName" value="district" id="flexRadioDefault1">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Tìm kiếm theo quận
@@ -60,7 +89,7 @@
                             <label class="form-check-label" for="flexRadioDefault2">
                                 Tìm kiếm theo tên
                             </label>
-                        </div>
+                        </div>*@
                     </div>
                 </form>
                 <div class="pd-20 card-box mb-30">
@@ -77,13 +106,13 @@
                         <thead>
                             <tr>
                                 <th scope="col">
-                                    <a href="@Url.Action("Sort", new {sortOrder = ViewBag.MaSortParm})">
+                                    <a href="@Url.Action("Sort", new {sortOrder = ViewBag.MaSortParm, type = 1})">
                                         Mã đại lý
                                         <i class="fa-solid fa-sort"></i>
                                     </a>
                                 </th>
                                 <th scope="col">
-                                    <a href="@Url.Action("Sort", new {sortOrder = ViewBag.TenSortParm})">
+                                    <a href="@Url.Action("Sort", new {sortOrder = ViewBag.TenSortParm, type = 1})">
                                         Tên đại lý
                                         <i class="fa-solid fa-sort"></i>
                                     </a>
@@ -92,13 +121,13 @@
                                 <th scope="col">Điện thoại</th>
                                 <th scope="col">Địa chỉ</th>
                                 <th scope="col">
-                                    <a href="@Url.Action("Sort", new {sortOrder = ViewBag.QuanSortParm})">
+                                    <a href="@Url.Action("Sort", new {sortOrder = ViewBag.QuanSortParm, type = 1})">
                                         Quận
                                         <i class="fa-solid fa-sort"></i>
                                     </a>
                                 </th>
                                 <th scope="col">
-                                    <a href="@Url.Action("Sort", new {sortOrder = ViewBag.NgaySortParm})">
+                                    <a href="@Url.Action("Sort", new {sortOrder = ViewBag.NgaySortParm, type = 1})">
                                         Ngày tiếp nhận
                                         <i class="fa-solid fa-sort"></i>
                                     </a>
