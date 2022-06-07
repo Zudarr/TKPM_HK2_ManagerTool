@@ -15,13 +15,12 @@ namespace TKPM.Controllers
         }
         public IActionResult Index()
         {
-            var danhSachDaiLy = _db.DaiLys.ToList();
             return RedirectToAction("DanhSachDaiLy");
         }
         public IActionResult DanhSachDaiLy()
         {
-            IEnumerable<DaiLy> danhSachDaiLy = _db.DaiLys.ToList();
-            return View("DanhSachDaiLy", danhSachDaiLy);
+            IQueryable<DaiLy> danhSachDaiLy = _db.DaiLys;
+            return View("DanhSachDaiLy", danhSachDaiLy.ToList());
         }
         public IActionResult ThemDaiLy()
         {
@@ -79,23 +78,49 @@ namespace TKPM.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public IActionResult TraCuuDaiLy(string input, string isDistrictOrName)
         {
-            if (isDistrictOrName == "name")
+            var daiLys = from d in _db.DaiLys select d;
+            if (!string.IsNullOrEmpty(input))
             {
-                var daiLyTen = _db.DaiLys
-                    .Where(d => d.TenDaiLy.Contains(input))
-                    .ToList();
-                return View("TraCuuDaiLy", daiLyTen);
+                if (isDistrictOrName == "name")
+                {
+                    daiLys = daiLys.Where(d => d.TenDaiLy.Contains(input));
+                }
+                else
+                {
+                    daiLys = daiLys.Where(d => d.QuanDaiLy.Contains(input));
+                }
+                return View(daiLys.ToList());
             }
             else
             {
-                var daiLyQuan = _db.DaiLys
-                    .Where(d => d.QuanDaiLy.Contains(input))
-                    .ToList();
-                return View("TraCuuDaiLy", daiLyQuan);
+                return View(daiLys.ToList());
             }
+            
+        }
+
+        public IActionResult Sort(string sortOrder)
+        {
+            ViewBag.MaSortParm = string.IsNullOrEmpty(sortOrder) ? "MaDaiLy_desc" : "";
+            ViewBag.TenSortParm = sortOrder == "TenDaiLy" ? "TenDaily_desc" : "TenDaiLy";
+            ViewBag.QuanSortParm = sortOrder == "QuanDaiLy" ? "QuanDaiLy_desc" : "QuanDaiLy";
+            ViewBag.NgaySortParm = sortOrder == "NgayDaiLy" ? "NgayDaiLy_desc" : "NgayDaiLy";
+            var daiLys = from d in _db.DaiLys select d;
+            daiLys = sortOrder switch
+            {
+                "MaDaiLy_desc" => daiLys.OrderByDescending(d => d.Id),
+                "TenDaily_desc" => daiLys.OrderByDescending(d => d.TenDaiLy),
+                "TenDaiLy" => daiLys.OrderBy(d => d.TenDaiLy),
+                "QuanDaiLy_desc" => daiLys.OrderByDescending(d => d.QuanDaiLy),
+                "QuanDaiLy" => daiLys.OrderBy(d => d.QuanDaiLy),
+                "NgayDaiLy_desc" => daiLys.OrderByDescending(d => d.NgayTiepNhan),
+                "NgayDaiLy" => daiLys.OrderBy(d => d.NgayTiepNhan),
+                _ => daiLys.OrderBy(d => d.Id),
+            };
+            return View("DanhSachDaiLy", daiLys);
         }
     }
 }

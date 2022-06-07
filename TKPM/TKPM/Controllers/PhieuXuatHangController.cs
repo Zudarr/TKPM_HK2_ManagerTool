@@ -131,5 +131,26 @@ namespace TKPM.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public IActionResult Sort(string sortOrder)
+        {
+            ViewBag.MaPhieuSortParm = string.IsNullOrEmpty(sortOrder) ? "MaPhieu_desc" : "";
+            ViewBag.MaDaiLySortParm = sortOrder == "MaDaiLy" ? "MaDaiLy_desc" : "MaDaiLy";
+            ViewBag.NgaySortParm = sortOrder == "NgayLapPhieu" ? "NgayLapPhieu_desc" : "NgayLapPhieu";
+            ViewBag.TienSortParm = sortOrder == "TongTien" ? "TongTien_desc" : "TongTien";
+            var phieuXuatHangs = from p in _db.PhieuXuatHangs select p;
+            phieuXuatHangs = sortOrder switch
+            {
+                "MaPhieu_desc" => phieuXuatHangs.OrderByDescending(p => p.ID),
+                "MaDaiLy_desc" => phieuXuatHangs.OrderByDescending(p => p.DaiLyId),
+                "MaDaiLy" => phieuXuatHangs.OrderBy(p => p.DaiLyId),
+                "NgayLapPhieu_desc" => phieuXuatHangs.OrderByDescending(p => p.NgayLapPhieuXuatHang),
+                "NgayLapPhieu" => phieuXuatHangs.OrderBy(p => p.NgayLapPhieuXuatHang),
+                "TongTien_desc" => phieuXuatHangs.OrderBy(p => p.TongTriGia),
+                "TongTien" => phieuXuatHangs.OrderBy(p => p.TongTriGia),
+                _ => phieuXuatHangs.OrderBy(d => d.ID),
+            };
+            return View("LichSuXuatHang", phieuXuatHangs);
+        }
     }
 }
