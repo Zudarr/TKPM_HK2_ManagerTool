@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,5 +21,5 @@ namespace TKPM.Models
         public int PhatSinh { get; set; }
         public int NoCuoi { get; set; }
         public int MaNguoiQuanLy { get; set; }
-    }
+}
 }

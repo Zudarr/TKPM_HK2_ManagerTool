@@ -1,0 +1,63 @@
+﻿@model TKPM.Models.BaoCaoDoanhThuVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <!-- Default Basic Forms Start -->
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <h4 class="text-blue h4">Báo cáo doanh thu tháng</h4>
+                    </div>
+                </div>
+                <form method="post">
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label" asp-for="Thang">Tháng: </label>
+                        <div class="col-sm-12 col-md-10">
+                            <input class="form-control"
+                                   type="text"
+                                   placeholder="" asp-for="Thang" />
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Stt</th>
+                                <th scope="col">Đại lý</th>
+                                <th scope="col">Số phiếu xuất</th>
+                                <th scope="col">Tổng trị giá</th>
+                                <th scope="col">Tỷ lệ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(@Model!=null ){
+                            @for (int i = 0; i < @Model.BaoCaoDoanhThu.Count(); i++)
+                            {
+                                <tr>
+                                    <th>@i</th>
+                                    <td>@Model.BaoCaoDoanhThu[i].DaiLy.TenDaiLy</td>
+                                    <td>@Model.BaoCaoDoanhThu[i].PhieuXuatHangs.Count()</td>
+                                    <td>@Model.BaoCaoDoanhThu[i].TongTriGia</td>
+                                    <td>@Model.BaoCaoDoanhThu[i].TiLe %</td>
+                                </tr>
+                            }}
+                        </tbody>
+                    </table>
+
+
+                    <div class="center">
+                        <input type="submit" value="Update"
+                               class="btn btn-primary btn-sm scroll-click" />
+                        <a class="btn btn-primary btn-sm scroll-click" asp-action="Index">Quay ve</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
