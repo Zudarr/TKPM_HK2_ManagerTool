@@ -51,9 +51,30 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Stt</th>
-                            <th scope="col">Đại lý</th>
-                            <th scope="col">Ngày lập phiếu</th>
+                            <th scope="col">
+                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.MaPhieuSortParm})">
+                                    Mã phiếu
+                                    <i class="fa-solid fa-sort"></i>
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.MaDaiLySortParm})">
+                                    Mã đại lý
+                                    <i class="fa-solid fa-sort"></i>
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.NgaySortParm})">
+                                    Ngày lập phiếu
+                                    <i class="fa-solid fa-sort"></i>
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.TienSortParm})">
+                                    Tổng giá trị
+                                    <i class="fa-solid fa-sort"></i>
+                                </a>
+                            </th>
                             <th scope="col">Chi tiết</th>
                             <th scope="col">Xóa</th>
                         </tr>
@@ -63,8 +84,9 @@
                         {
                             <tr>
                             <th>@obj.ID</th>
-                            <td>@obj.DaiLy.TenDaiLy</td>
+                            <td>@obj.DaiLyId</td>
                             <td>@obj.NgayLapPhieuXuatHang</td>
+                            <td>@obj.TongTriGia</td>
                             <td><a class="btn btn-primary btn-sm scroll-click" asp-controller="PhieuXuatHang" asp-action="Edit" asp-route-Id="@obj.ID">Chi Tiết</a></td>
                             <td><a class="btn btn-primary btn-sm scroll-click" asp-controller="PhieuXuatHang" asp-action="Delete" asp-route-Id="@obj.ID">Xóa</a></td>
                             </tr>

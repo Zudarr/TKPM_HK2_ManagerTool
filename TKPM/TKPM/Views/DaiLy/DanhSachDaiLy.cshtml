@@ -51,13 +51,33 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Mã đại lý</th>
-                            <th scope="col">Tên</th>
+                            <th scope="col">
+                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.MaSortParm})">
+                                    Mã đại lý
+                                    <i class="fa-solid fa-sort"></i>
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.TenSortParm})">
+                                    Tên đại lý
+                                    <i class="fa-solid fa-sort"></i>
+                                </a>
+                            </th>
                             <th scope="col">Loại</th>
                             <th scope="col">Điện thoại</th>
                             <th scope="col">Địa chỉ</th>
-                            <th scope="col">Quận</th>
-                            <th scope="col">Ngày tiếp nhận</th>
+                            <th scope="col">
+                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.QuanSortParm})">
+                                    Quận
+                                    <i class="fa-solid fa-sort"></i>
+                                </a>
+                            </th>
+                            <th scope="col">
+                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.NgaySortParm})">
+                                    Ngày tiếp nhận
+                                    <i class="fa-solid fa-sort"></i>
+                                </a>
+                            </th>
                             <th scope="col">Email</th>
                             <th scope="col">Chi tiết</th>
                         </tr>

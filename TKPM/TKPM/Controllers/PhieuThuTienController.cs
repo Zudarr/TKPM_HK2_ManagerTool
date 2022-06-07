@@ -69,5 +69,29 @@ namespace TKPM.Controllers
             _db.SaveChanges();
             return RedirectToAction("LichSuThuTien");
         }
+
+        public IActionResult Sort(string sortOrder)
+        {
+            ViewBag.MaPhieuSortParm = string.IsNullOrEmpty(sortOrder) ? "MaPhieu_desc" : "";
+            ViewBag.MaDaiLySortParm = sortOrder == "MaDaiLy" ? "MaDaiLy_desc" : "MaDaiLy";
+            ViewBag.NguoiSortParm = sortOrder == "NguoiThuTien" ? "NguoiThuTien_desc" : "NguoiThuTien";
+            ViewBag.NgaySortParm = sortOrder == "NgayThuTien" ? "NgayThuTien_desc" : "NgayThuTien";
+            ViewBag.TienSortParm = sortOrder == "SoTienThu" ? "SoTienThu_desc" : "SoTienThu";
+            var phieuThuTiens = from p in _db.PhieuThuTiens select p;
+            phieuThuTiens = sortOrder switch
+            {
+                "MaPhieu_desc" => phieuThuTiens.OrderByDescending(p => p.Id),
+                "MaDaiLy_desc" => phieuThuTiens.OrderByDescending(p => p.IdDaiLy),
+                "MaDaiLy" => phieuThuTiens.OrderBy(p => p.IdDaiLy),
+                "NguoiThuTien_desc" => phieuThuTiens.OrderByDescending(p => p.IdNguoiThuTien),
+                "NguoiThuTien" => phieuThuTiens.OrderBy(p => p.IdNguoiThuTien),
+                "NgayThuTien_desc" => phieuThuTiens.OrderByDescending(p => p.NgayThuTien),
+                "NgayThuTien" => phieuThuTiens.OrderBy(p => p.NgayThuTien),
+                "SoTienThu_desc" => phieuThuTiens.OrderBy(p => p.SoTienThu),
+                "SoTienThu" => phieuThuTiens.OrderBy(p => p.SoTienThu),
+                _ => phieuThuTiens.OrderBy(d => d.Id),
+            };
+            return View("LichSuThuTien", phieuThuTiens);
+        }
     }
 }
