@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using TKPM.Data;
@@ -6,6 +7,7 @@ using TKPM.Models;
 
 namespace TKPM.Controllers
 {
+    [Authorize]
     public class DaiLyController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -22,11 +24,12 @@ namespace TKPM.Controllers
             IQueryable<DaiLy> danhSachDaiLy = _db.DaiLys;
             return View("DanhSachDaiLy", danhSachDaiLy.ToList());
         }
+        [Authorize(Roles ="QuanLyCongTy")]
         public IActionResult ThemDaiLy()
         {
             return View();
         }
-
+        [Authorize(Roles = "QuanLyCongTy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(DaiLy obj)
@@ -50,7 +53,7 @@ namespace TKPM.Controllers
             DaiLy daiLyTruyXuat= _db.DaiLys.FirstOrDefault(x => x.Id == id);
             return View("ChiTietDaiLy",daiLyTruyXuat);
         }
-
+        [Authorize(Roles = "QuanLyCongTy")]
         public IActionResult Update(int ?id)
         {
             if (id == null || id == 0)
@@ -60,7 +63,7 @@ namespace TKPM.Controllers
             DaiLy daiLyTruyXuat = _db.DaiLys.FirstOrDefault(x => x.Id == id);
             return View("UpdateDaiLy", daiLyTruyXuat);
         }
-
+        [Authorize(Roles = "QuanLyCongTy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Update(DaiLy obj)
@@ -70,7 +73,7 @@ namespace TKPM.Controllers
             return RedirectToAction("Index");
         }
 
-
+        [Authorize(Roles = "QuanLyCongTy")]
         public IActionResult Delete(int? id)
         {
             DaiLy daiLyXoa = _db.DaiLys.FirstOrDefault(x => x.Id == id);

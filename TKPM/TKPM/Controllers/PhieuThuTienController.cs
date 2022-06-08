@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using TKPM.Data;
 using TKPM.Models;
 
 namespace TKPM.Controllers
 {
+    [Authorize]
     public class PhieuThuTienController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -21,10 +23,12 @@ namespace TKPM.Controllers
             var obj = _db.PhieuThuTiens.ToList();
             return View("LichSuThuTien",obj);
         }
+        [Authorize(Roles = "QuanLyCongTy,QuanLyKho")]
         public IActionResult LapPhieuThuTien()
         {
             return View("TaoPhieuThuTien");
         }
+        [Authorize(Roles = "QuanLyCongTy,QuanLyKho")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(PhieuThuTien obj)
@@ -43,6 +47,7 @@ namespace TKPM.Controllers
             var obj=_db.PhieuThuTiens.Find(id);
             return View("ChiTietThuTien", obj);
         }
+        [Authorize(Roles = "QuanLyCongTy")]
         public IActionResult Delete(int?id)
         {
             var obj = _db.PhieuThuTiens.Find(id);
@@ -50,7 +55,7 @@ namespace TKPM.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles = "QuanLyCongTy")]
         public IActionResult Update(int?id)
         {
             if(id==null)
@@ -60,7 +65,7 @@ namespace TKPM.Controllers
             var obj=_db.PhieuThuTiens.Find(id);
             return View("UpdatePhieuThuTien",obj);
         }
-
+        [Authorize(Roles = "QuanLyCongTy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Update(PhieuThuTien obj)
