@@ -1,0 +1,46 @@
+﻿@model TKPM.Models.HangHoa
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <!-- Default Basic Forms Start -->
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <h4 class="text-blue h4">Thêm mặt hàng</h4>
+                    </div>
+                </div>
+                <form asp-action="Create" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="TenHang" class="control-label">Tên hàng</label>
+                        <input asp-for="TenHang" class="form-control" />
+                        <span asp-validation-for="TenHang" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DonViTinh" class="control-label">Đơn vị tính</label>
+                        <input asp-for="DonViTinh" class="form-control" />
+                        <span asp-validation-for="DonViTinh" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SoLuongTrongKho" class="control-label">Số lượng</label>
+                        <input asp-for="SoLuongTrongKho" class="form-control" />
+                        <span asp-validation-for="SoLuongTrongKho" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DonGia" class="control-label">Đơn giá</label>
+                        <input asp-for="DonGia" class="form-control" />
+                        <span asp-validation-for="DonGia" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
