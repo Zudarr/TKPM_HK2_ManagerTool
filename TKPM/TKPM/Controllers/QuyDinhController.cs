@@ -49,30 +49,16 @@ namespace TKPM.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Sort(string sortOrder, int type)
+        public IActionResult Sort(string sortOrder)
         {
             ViewBag.MaSortParm = string.IsNullOrEmpty(sortOrder) ? "MaDaiLy_desc" : "";
-            ViewBag.TenSortParm = sortOrder == "TenDaiLy" ? "TenDaily_desc" : "TenDaiLy";
-            ViewBag.QuanSortParm = sortOrder == "QuanDaiLy" ? "QuanDaiLy_desc" : "QuanDaiLy";
-            ViewBag.NgaySortParm = sortOrder == "NgayDaiLy" ? "NgayDaiLy_desc" : "NgayDaiLy";
-            var daiLys = from d in _db.DaiLys select d;
-            daiLys = sortOrder switch
+            var quyDinhs = from q in _db.QuyDinhs select q;
+            quyDinhs = sortOrder switch
             {
-                "MaDaiLy_desc" => daiLys.OrderByDescending(d => d.Id),
-                "TenDaily_desc" => daiLys.OrderByDescending(d => d.TenDaiLy),
-                "TenDaiLy" => daiLys.OrderBy(d => d.TenDaiLy),
-                "QuanDaiLy_desc" => daiLys.OrderByDescending(d => d.QuanDaiLy),
-                "QuanDaiLy" => daiLys.OrderBy(d => d.QuanDaiLy),
-                "NgayDaiLy_desc" => daiLys.OrderByDescending(d => d.NgayTiepNhan),
-                "NgayDaiLy" => daiLys.OrderBy(d => d.NgayTiepNhan),
-                _ => daiLys.OrderBy(d => d.Id),
+                "MaDaiLy_desc" => quyDinhs.OrderByDescending(q => q.MaNhanDien),
+                _ => quyDinhs.OrderBy(q => q.MaNhanDien),
             };
-            return type switch
-            {
-                1 => View("DanhSachDaiLy", daiLys),
-                2 => View("TraCuuDaiLy", daiLys),
-                _ => View("DanhSachDaiLy", daiLys),
-            };
+            return View("Index", quyDinhs);
         }
     }
 }
