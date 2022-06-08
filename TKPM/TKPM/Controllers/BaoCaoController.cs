@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using TKPM.Models.ViewModels;
 
 namespace TKPM.Controllers
 {
+    [Authorize]
     public class BaoCaoController : Controller
     {
         private readonly ApplicationDbContext _db;

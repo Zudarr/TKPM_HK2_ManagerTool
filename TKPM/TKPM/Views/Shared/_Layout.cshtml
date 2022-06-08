@@ -368,42 +368,63 @@
                         </a>
                         <ul class="submenu">
                             <li><a asp-area="" asp-controller="DaiLy" asp-action="DanhSachDaiLy">Danh sách đại lý</a></li>
-                            <li><a asp-area="" asp-controller="DaiLy" asp-action="ThemDaiLy">Thêm đại lý</a></li>
+                            @if(User.IsInRole("QuanLyCongTy"))
+                            {
+                                <li><a asp-area="" asp-controller="DaiLy" asp-action="ThemDaiLy">Thêm đại lý</a></li>
+                            }
                             <li><a asp-area="" asp-controller="DaiLy" asp-action="TraCuuDaiLy">Tra cứu đại lý</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-library"></span><span class="mtext">Xuất hàng</span>
-                        </a>
-                        <ul class="submenu">
-                            <li><a asp-area="" asp-controller="PhieuXuatHang" asp-action="LichSuXuatHang">Lịch sử xuất hàng</a></li>
-                            <li><a asp-area="" asp-controller="PhieuXuatHang" asp-action="Create">Lập phiếu xuất hàng</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-invoice"></span><span class="mtext">Thu tiền</span>
-                        </a>
-                        <ul class="submenu">
-                            <li><a asp-area="" asp-controller="PhieuThuTien" asp-action="LichSuThuTien">Lịch sử thu tiền</a></li>
-                            <li><a asp-area="" asp-controller="PhieuThuTien" asp-action="LapPhieuThuTien">Lập phiếu thu tiền</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-invoice"></span><span class="mtext">Báo cáo</span>
-                        </a>
-                        <ul class="submenu">
-                            <li><a asp-area="" asp-controller="BaoCao" asp-action="BaoCaoDoanhThu">Tạo báo cáo doanh thu tháng</a></li>
-                            <li><a asp-area="" asp-controller="BaoCao" asp-action="BaoCaoCongNo">Tạo báo cáo công nợ tháng</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="calendar.html" class="dropdown-toggle no-arrow">
-                            <span class="micon dw dw-calendar1"></span><span class="mtext">Calendar</span>
-                        </a>
-                    </li>
+                    @if(User.IsInRole("QuanLyKho,")||User.IsInRole("QuanLyCongTy")||User.IsInRole("QuanLyChiNhanh"))
+                    {
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon dw dw-library"></span><span class="mtext">Xuất hàng</span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a asp-area="" asp-controller="PhieuXuatHang" asp-action="LichSuXuatHang">Lịch sử xuất hàng</a></li>
+                                @if(User.IsInRole("QuanLyKho")||User.IsInRole("QuanLyCongTy"))
+                                {
+                                    <li><a asp-area="" asp-controller="PhieuXuatHang" asp-action="Create">Lập phiếu xuất hàng</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if(User.IsInRole("QuanLyCongTy")||User.IsInRole("ThuTien")||User.IsInRole("QuanLyChiNhanh"))
+                    {
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon dw dw-invoice"></span><span class="mtext">Thu tiền</span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a asp-area="" asp-controller="PhieuThuTien" asp-action="LichSuThuTien">Lịch sử thu tiền</a></li>
+                                @if(User.IsInRole("ThuTien")||User.IsInRole("QuanLyCongTy"))
+                                {
+                                    <li><a asp-area="" asp-controller="PhieuThuTien" asp-action="LapPhieuThuTien">Lập phiếu thu tiền</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    @if(User.IsInRole("QuanLyCongTy"))
+                    {
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon dw dw-invoice"></span><span class="mtext">Báo cáo</span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a asp-area="" asp-controller="BaoCao" asp-action="BaoCaoDoanhThu">Tạo báo cáo doanh thu tháng</a></li>
+                                <li><a asp-area="" asp-controller="BaoCao" asp-action="BaoCaoCongNo">Tạo báo cáo công nợ tháng</a></li>
+                            </ul>
+                        </li>
+                    }
+                    @if(User.IsInRole("QuanLyCongTy"))
+                    {
+                        <li>
+                            <a href="calendar.html" class="dropdown-toggle no-arrow">
+                                <span class="micon dw dw-calendar1"></span><span class="mtext">Calendar</span>
+                            </a>
+                        </li>
+                    }
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle">
                             <span class="micon dw dw-apartment"></span><span class="mtext"> UI Elements </span>
