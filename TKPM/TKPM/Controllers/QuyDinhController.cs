@@ -26,7 +26,7 @@ namespace TKPM.Controllers
             {
                 return NotFound();
             }
-            return View(_db.QuyDinhs.ToList());
+            return View(quyDinh.ToList());
         }
 
         public IActionResult Edit(int? id)
