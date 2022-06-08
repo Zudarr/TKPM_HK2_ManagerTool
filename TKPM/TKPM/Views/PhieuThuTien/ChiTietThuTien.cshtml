@@ -33,6 +33,7 @@
             </div>
             <div>
                 <a asp-area="" asp-controller="PhieuThuTien" asp-action="Update" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Update</a>
+                <input type="submit" value="Xuất PDF" asp-action="ExportPDF_ChiTietThuTien_BM4" class="btn btn-primary btn-sm scroll-click" />
                 <a asp-area="" asp-controller="PhieuThuTien" asp-action="Delete" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Delete</a>
             </div>
         </div>
