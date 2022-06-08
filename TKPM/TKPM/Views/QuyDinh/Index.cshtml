@@ -1,0 +1,52 @@
+﻿@using TKPM.Models
+@model IEnumerable<QuyDinh>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <!-- basic table  Start -->
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix mb-20">
+                    <div class="pull-left">
+                        <h4 class="text-blue h4">Danh sach quy dinh</h4>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.MaSortParm})">
+                                    Mã nhận diện
+                                    <i class="fa-solid fa-sort"></i>
+                                </a>
+                            </th>
+                            <th scope="col">Nội dung </th>
+                            <th scope="col">Giá trị</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model) {
+                            <tr>
+                                <td>@item.MaNhanDien</td>
+                                <td>@item.NoiDung</td>
+                                <td>@item.GiaTri</td>
+                                <td>
+                                    @if (@item.Changeable == true)
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm scroll-click">Edit</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- basic table  End -->
+        </div>
+    </div>
+</div>
