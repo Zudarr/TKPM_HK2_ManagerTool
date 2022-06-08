@@ -3,6 +3,8 @@ using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +15,7 @@ using TKPM.Models.ViewModels;
 
 namespace TKPM.Controllers
 {
+    [Authorize]
     public class DaiLyController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -29,11 +32,12 @@ namespace TKPM.Controllers
             IQueryable<DaiLy> danhSachDaiLy = _db.DaiLys;
             return View("DanhSachDaiLy", danhSachDaiLy.ToList());
         }
+        [Authorize(Roles ="QuanLyCongTy")]
         public IActionResult ThemDaiLy()
         {
             return View();
         }
-
+        [Authorize(Roles = "QuanLyCongTy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(DaiLy obj)
@@ -94,7 +98,7 @@ namespace TKPM.Controllers
             DaiLy daiLyTruyXuat= _db.DaiLys.FirstOrDefault(x => x.Id == id);
             return View("ChiTietDaiLy",daiLyTruyXuat);
         }
-
+        [Authorize(Roles = "QuanLyCongTy")]
         public IActionResult Update(int ?id)
         {
             if (id == null || id == 0)
@@ -104,7 +108,7 @@ namespace TKPM.Controllers
             DaiLy daiLyTruyXuat = _db.DaiLys.FirstOrDefault(x => x.Id == id);
             return View("UpdateDaiLy", daiLyTruyXuat);
         }
-
+        [Authorize(Roles = "QuanLyCongTy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Update(DaiLy obj)
@@ -114,7 +118,7 @@ namespace TKPM.Controllers
             return RedirectToAction("Index");
         }
 
-
+        [Authorize(Roles = "QuanLyCongTy")]
         public IActionResult Delete(int? id)
         {
             DaiLy daiLyXoa = _db.DaiLys.FirstOrDefault(x => x.Id == id);
@@ -124,29 +128,21 @@ namespace TKPM.Controllers
         }
 
         [HttpGet]
-        public IActionResult TraCuuDaiLy(string input, string isDistrictOrName)
+        public IActionResult TraCuuDaiLy(string name, string district)
         {
             var daiLys = from d in _db.DaiLys select d;
-            if (!string.IsNullOrEmpty(input))
+            if (!string.IsNullOrEmpty(name))
             {
-                if (isDistrictOrName == "name")
-                {
-                    daiLys = daiLys.Where(d => d.TenDaiLy.Contains(input));
-                }
-                else
-                {
-                    daiLys = daiLys.Where(d => d.QuanDaiLy.Contains(input));
-                }
-                return View(daiLys.ToList());
+                daiLys = daiLys.Where(d => d.TenDaiLy.Contains(name));
             }
-            else
+            if (!string.IsNullOrEmpty(district))
             {
-                return View(daiLys.ToList());
+                daiLys = daiLys.Where(d => d.QuanDaiLy == district);
             }
-            
+            return View(daiLys);
         }
 
-        public IActionResult Sort(string sortOrder)
+        public IActionResult Sort(string sortOrder, int type)
         {
             ViewBag.MaSortParm = string.IsNullOrEmpty(sortOrder) ? "MaDaiLy_desc" : "";
             ViewBag.TenSortParm = sortOrder == "TenDaiLy" ? "TenDaily_desc" : "TenDaiLy";
@@ -164,7 +160,12 @@ namespace TKPM.Controllers
                 "NgayDaiLy" => daiLys.OrderBy(d => d.NgayTiepNhan),
                 _ => daiLys.OrderBy(d => d.Id),
             };
-            return View("DanhSachDaiLy", daiLys);
+            return type switch
+            {
+                1 => View("DanhSachDaiLy", daiLys),
+                2 => View("TraCuuDaiLy", daiLys),
+                _ => View("DanhSachDaiLy", daiLys),
+            };
         }
     }
 }

@@ -1,0 +1,42 @@
+﻿@model TKPM.Models.QuyDinh
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <!-- Default Basic Forms Start -->
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <h4 class="text-blue h4">Sửa quy định</h4>
+                    </div>
+                </div>
+                <form asp-action="Edit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Changeable" />
+                    <input type="hidden" asp-for="ID" />
+                    <div class="form-group">
+                        <label asp-for="MaNhanDien" class="control-label">Mã nhận diện</label>
+                        <input asp-for="MaNhanDien" class="form-control" />
+                        <span asp-validation-for="MaNhanDien" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NoiDung" class="control-label">Nội dung</label>
+                        <input asp-for="NoiDung" class="form-control" />
+                        <span asp-validation-for="NoiDung" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GiaTri" class="control-label">Giá trị</label>
+                        <input asp-for="GiaTri" class="form-control" />
+                        <span asp-validation-for="GiaTri" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

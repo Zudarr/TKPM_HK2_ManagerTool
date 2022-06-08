@@ -1,5 +1,6 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,6 +13,7 @@ using TKPM.Models;
 
 namespace TKPM.Controllers
 {
+    [Authorize]
     public class PhieuXuatHangController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -24,12 +26,13 @@ namespace TKPM.Controllers
             IEnumerable<PhieuXuatHang> PhieuXuatHangList = _db.PhieuXuatHangs.Include(c => c.DaiLy);
             return View("LichSuXuatHang", PhieuXuatHangList);
         }
-
+        [Authorize(Roles = "QuanLyKho,QuanLyCongTy,QuanLyChiNhanh")]
         public IActionResult LichSuXuatHang()
         {
             IEnumerable<PhieuXuatHang> PhieuXuatHangList = _db.PhieuXuatHangs.Include(c => c.DaiLy);
             return View(PhieuXuatHangList);
         }
+        [Authorize(Roles="QuanLyKho,QuanLyCongTy")]
         public IActionResult Create()
         {
             IEnumerable<HangHoa> hangHoa= _db.HangHoas;
@@ -43,6 +46,7 @@ namespace TKPM.Controllers
             PhieuXuatHang phieuXuatHang = new PhieuXuatHang() {ChiTietXuatHangs=chiTietXuatHang};
             return View(phieuXuatHang);
         }
+        [Authorize(Roles="QuanLyKho,QuanLyCongTy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(PhieuXuatHang obj)
@@ -179,6 +183,7 @@ namespace TKPM.Controllers
             }
             return View();
         }
+        [Authorize(Roles = "QuanLyKho,QuanLyCongTy")]
         public IActionResult Edit(int id)
         {
             if (id == null)
@@ -193,6 +198,7 @@ namespace TKPM.Controllers
             return View(phieuXuatHang);
         }
 
+        [Authorize(Roles = "QuanLyKho,QuanLyCongTy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(PhieuXuatHang obj)
@@ -214,6 +220,7 @@ namespace TKPM.Controllers
             }
             return RedirectToAction(actionName: "Edit", new { id = obj.ID });
         }
+        [Authorize(Roles = "QuanLyKho,QuanLyCongTy")]
         public IActionResult Delete(int Id)
         {
             var obj = _db.PhieuXuatHangs.Where(c=>c.ID==Id).Include(c=>c.ChiTietXuatHangs).ToList()[0];
@@ -233,6 +240,7 @@ namespace TKPM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "QuanLyKho,QuanLyCongTy")]
         public IActionResult Delete(PhieuXuatHang obj)
         {
             var result = _db.Remove(new PhieuXuatHang() { DaiLyId = obj.DaiLyId, ID = obj.ID, NgayLapPhieuXuatHang = obj.NgayLapPhieuXuatHang });

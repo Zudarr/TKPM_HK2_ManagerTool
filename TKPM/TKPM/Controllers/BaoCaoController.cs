@@ -1,5 +1,6 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,6 +14,7 @@ using TKPM.Models.ViewModels;
 
 namespace TKPM.Controllers
 {
+    [Authorize]
     public class BaoCaoController : Controller
     {
         private readonly ApplicationDbContext _db;
