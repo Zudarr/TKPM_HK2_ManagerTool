@@ -1,4 +1,6 @@
-﻿@{
+﻿@model TKPM.Models.DaiLy
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,59 +8,71 @@
     <div class="pd-ltr-20 xs-pd-20-10">
         <div class="min-height-200px">
             <!-- Default Basic Forms Start -->
-            <div class="pd-20 card-box mb-30">
-                <div class="clearfix">
-                    <div class="pull-left">
-                        <h4 class="text-blue h4">Thêm đại lý</h4>
+            <form method="post">
+                <div class="pd-20 card-box mb-30">
+                    <div class="clearfix">
+                        <div class="pull-left">
+                            <h4 class="text-blue h4">Thêm đại lý</h4>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Tên đại lý</label>
-                    <div class="col-sm-12 col-md-10">
-                        @Model.TenDaiLy
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label">Tên đại lý</label>
+                        <div class="col-sm-12 col-md-10">
+                            @Model.TenDaiLy
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Loại đại lý</label>
-                    <div class="col-sm-12 col-md-10">
-                        @Model.LoaiDaiLy
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label">Loại đại lý</label>
+                        <div class="col-sm-12 col-md-10">
+                            @Model.LoaiDaiLy
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Điện thoại</label>
-                    <div class="col-sm-12 col-md-10">
-                        @Model.DienThoaiDaiLy
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label">Điện thoại</label>
+                        <div class="col-sm-12 col-md-10">
+                            @Model.DienThoaiDaiLy
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Địa chỉ</label>
-                    <div class="col-sm-12 col-md-10">
-                        @Model.DiaChiDaiLy
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label">Địa chỉ</label>
+                        <div class="col-sm-12 col-md-10">
+                            @Model.DiaChiDaiLy
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Quận</label>
-                    <div class="col-sm-12 col-md-10">
-                        @Model.QuanDaiLy
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label">Quận</label>
+                        <div class="col-sm-12 col-md-10">
+                            @Model.QuanDaiLy
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Ngày tiếp nhận</label>
-                    <div class="col-sm-12 col-md-10">
-                        @Model.NgayTiepNhan
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label">Ngày tiếp nhận</label>
+                        <div class="col-sm-12 col-md-10">
+                            @Model.NgayTiepNhan
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Email</label>
-                    <div class="col-sm-12 col-md-10">
-                        @Model.EmailDaiLy
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label">Email</label>
+                        <div class="col-sm-12 col-md-10">
+                            @Model.EmailDaiLy
+                        </div>
                     </div>
+                    <input type="hidden" asp-for="@Model.TenDaiLy">
+                    <input type="hidden" asp-for="@Model.LoaiDaiLy">
+                    <input type="hidden" asp-for="@Model.DienThoaiDaiLy">
+                    <input type="hidden" asp-for="@Model.DiaChiDaiLy">
+                    <input type="hidden" asp-for="@Model.QuanDaiLy">
+                    <input type="hidden" asp-for="@Model.NgayTiepNhan">
+                    <input type="hidden" asp-for="@Model.EmailDaiLy">
                 </div>
-            </div>
-            <div>
-                <a asp-area="" asp-controller="DaiLy" asp-action="Update" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Update</a>
-                <a asp-area="" asp-controller="DaiLy" asp-action="Delete" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Delete</a>
-            </div>
+
+
+                <div>
+                    <a asp-area="" asp-controller="DaiLy" asp-action="Update" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Update</a>
+                    <input type="submit" value="Xuất PDF" asp-action="ExportPDF_ChiTietDaiLy_BM1" class="btn btn-primary btn-sm scroll-click" />
+                    <a asp-area="" asp-controller="DaiLy" asp-action="Delete" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Delete</a>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -1,8 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using TKPM.Data;
 using TKPM.Models;
+using TKPM.Models.ViewModels;
 
 namespace TKPM.Controllers
 {
@@ -39,6 +46,43 @@ namespace TKPM.Controllers
             _db.DaiLys.Add(obj);
             _db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ExportPDF_ChiTietDaiLy_BM1(DaiLy obj)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Document document = new Document(PageSize.A4, 25, 25, 30, 30);
+                PdfWriter writer = PdfWriter.GetInstance(document, ms);
+                document.Open();
+                //=============Start creating pdf content================
+                //Add heading
+                Paragraph para1 = new Paragraph($"PHIEU CHI TIET DAI LY\n\n", new Font(Font.FontFamily.HELVETICA, 20, 1));
+                Paragraph para2 = new Paragraph($"Ten: {obj.TenDaiLy}\n".NonUnicode());
+                Paragraph para3 = new Paragraph($"Loai dai ly: {obj.LoaiDaiLy}\n");
+                Paragraph para4 = new Paragraph($"Dien thoai: {obj.DienThoaiDaiLy}\n");
+                Paragraph para5 = new Paragraph($"Dia chi: {obj.DiaChiDaiLy}\n".NonUnicode());
+                Paragraph para6 = new Paragraph($"Quan: {obj.QuanDaiLy}\n".NonUnicode());
+                Paragraph para7 = new Paragraph($"Ngay tiep nhan: {obj.NgayTiepNhan.ToString()}\n");
+                Paragraph para8 = new Paragraph($"Email: {obj.EmailDaiLy}\n");
+
+                para1.Alignment = Element.ALIGN_CENTER;
+                document.Add(para1);
+                document.Add(para2);
+                document.Add(para3);
+                document.Add(para4);
+                document.Add(para5);
+                document.Add(para6);
+                document.Add(para7);
+                document.Add(para8);
+
+                //=============End creating pdf content================
+                document.Close();
+                writer.Close();
+                var constant = ms.ToArray();
+                return File(constant, "application/vnd", $"ChiTietDaiLy.pdf");
+            }
+            return View();
         }
 
         public IActionResult ChiTietDaiLy(int ?id)
