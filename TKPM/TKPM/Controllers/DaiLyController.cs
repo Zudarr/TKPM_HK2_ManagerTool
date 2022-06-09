@@ -116,7 +116,20 @@ namespace TKPM.Controllers
             //obj.NoDau = 0;
             //obj.NoCuoi = 0;
             //obj.PhatSinh = 0;
+            var DaiLyCungQuan = from DaiLy in _db.DaiLys
+                               where DaiLy.QuanDaiLy == obj.QuanDaiLy
+                               select DaiLy.Id;
+            var SoLuongDaiLy = DaiLyCungQuan.Count();
 
+            var quyDinhSoLuong = from QuyDinh in _db.QuyDinhs
+                                 where QuyDinh.MaNhanDien == "SL_DL_TDQ"
+                                 select QuyDinh.GiaTri;
+            var giaTriQuyDinh = quyDinhSoLuong.First();
+
+            if(SoLuongDaiLy==giaTriQuyDinh)
+            {
+                return RedirectToAction("ThemDaiLy");
+            }
             _db.DaiLys.Add(obj);
             _db.SaveChanges();
             return RedirectToAction("Index");
@@ -165,7 +178,7 @@ namespace TKPM.Controllers
             {
                 return NotFound();
             }
-            DaiLy daiLyTruyXuat= _db.DaiLys.FirstOrDefault(x => x.Id == id);
+            DaiLy daiLyTruyXuat= _db.DaiLys.Include(c=>c.ApplicationUser).FirstOrDefault(x => x.Id == id);
             return View("ChiTietDaiLy",daiLyTruyXuat);
         }
         [Authorize(Roles = "QuanLyCongTy")]
