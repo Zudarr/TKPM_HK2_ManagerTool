@@ -38,74 +38,79 @@
                 </div>
             </div>
             <!-- basic table  Start -->
-            <div class="pd-20 card-box mb-30">
-                <div class="clearfix mb-20">
-                    <div class="pull-left">
-                        <h4 class="text-blue h4">Danh sach dai ly</h4>
-                        <p>Add class <code>.table</code></p>
-                    </div>
-                    @if(User.IsInRole("QuanLyCongTy"))
-                    {
-                        <div class="pull-right">
-                            <a asp-area="" asp-controller="DaiLy" asp-action="ThemDaiLy" class="btn btn-primary btn-sm scroll-click">Thêm đại lý</a>
+            <form method="post">
+                <div class="pd-20 card-box mb-30">
+                    <div class="clearfix mb-20">
+                        <div class="pull-left">
+                            <h4 class="text-blue h4">Danh sach dai ly</h4>
+                            <p>Add class <code>.table</code></p>
                         </div>
-                    }
-                </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">
-                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.MaSortParm, type = 1})">
-                                    Mã đại lý
-                                    <i class="fa-solid fa-sort"></i>
-                                </a>
-                            </th>
-                            <th scope="col">
-                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.TenSortParm, type = 1})">
-                                    Tên đại lý
-                                    <i class="fa-solid fa-sort"></i>
-                                </a>
-                            </th>
-                            <th scope="col">Loại</th>
-                            <th scope="col">Điện thoại</th>
-                            <th scope="col">Địa chỉ</th>
-                            <th scope="col">
-                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.QuanSortParm, type = 1})">
-                                    Quận
-                                    <i class="fa-solid fa-sort"></i>
-                                </a>
-                            </th>
-                            <th scope="col">
-                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.NgaySortParm, type = 1})">
-                                    Ngày tiếp nhận
-                                    <i class="fa-solid fa-sort"></i>
-                                </a>
-                            </th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Chi tiết</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var obj in Model)
+                        @if (User.IsInRole("QuanLyCongTy"))
                         {
-                            <tr>
-                            <th>@obj.Id</th>
-                            <td>@obj.TenDaiLy</td>
-                            <td>@obj.LoaiDaiLy</td>
-                            <td>@obj.DienThoaiDaiLy</td>
-                            <td>@obj.DiaChiDaiLy</td>
-                            <td>@obj.QuanDaiLy</td>
-                            <td>@obj.NgayTiepNhan</td>
-                            <td>@obj.EmailDaiLy</td>
-                            <td>
-                                <a asp-area="" asp-controller="DaiLy" asp-action="ChiTietDaiLy" asp-route-Id="@obj.Id" class="btn btn-primary btn-sm scroll-click">Chi Tiết</a>
-                            </td>
-                            </tr>
+                            <div class="pull-right">
+                                <a asp-area="" asp-controller="DaiLy" asp-action="ThemDaiLy" class="btn btn-primary btn-sm scroll-click">Thêm đại lý</a>
+                            </div>
                         }
-                    </tbody>
-                </table>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <a href="@Url.Action("Sort", new {sortOrder = ViewBag.MaSortParm, type = 1})">
+                                        Mã đại lý
+                                        <i class="fa-solid fa-sort"></i>
+                                    </a>
+                                </th>
+                                <th scope="col">
+                                    <a href="@Url.Action("Sort", new {sortOrder = ViewBag.TenSortParm, type = 1})">
+                                        Tên đại lý
+                                        <i class="fa-solid fa-sort"></i>
+                                    </a>
+                                </th>
+                                <th scope="col">Loại</th>
+                                <th scope="col">Điện thoại</th>
+                                <th scope="col">Địa chỉ</th>
+                                <th scope="col">
+                                    <a href="@Url.Action("Sort", new {sortOrder = ViewBag.QuanSortParm, type = 1})">
+                                        Quận
+                                        <i class="fa-solid fa-sort"></i>
+                                    </a>
+                                </th>
+                                <th scope="col">
+                                    <a href="@Url.Action("Sort", new {sortOrder = ViewBag.NgaySortParm, type = 1})">
+                                        Ngày tiếp nhận
+                                        <i class="fa-solid fa-sort"></i>
+                                    </a>
+                                </th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Chi tiết</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var obj in Model)
+                            {
 
-            </div>
+                                <tr>
+                                    <th>@obj.Id</th>
+                                    <td>@obj.TenDaiLy</td>
+                                    <td>@obj.LoaiDaiLy</td>
+                                    <td>@obj.DienThoaiDaiLy</td>
+                                    <td>@obj.DiaChiDaiLy</td>
+                                    <td>@obj.QuanDaiLy</td>
+                                    <td>@obj.NgayTiepNhan</td>
+                                    <td>@obj.EmailDaiLy</td>
+                                    <td>
+                                        <a asp-area="" asp-controller="DaiLy" asp-action="ChiTietDaiLy" asp-route-Id="@obj.Id" class="btn btn-primary btn-sm scroll-click">Chi Tiết</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div>
+                        <input type="submit" value="Xuất PDF" asp-action="ExportPDF_DanhSachDaiLy_BM3" class="btn btn-primary btn-sm scroll-click" />
+                    </div>
+                </div>
+            </form>
             <!-- basic table  End -->
         </div>
 

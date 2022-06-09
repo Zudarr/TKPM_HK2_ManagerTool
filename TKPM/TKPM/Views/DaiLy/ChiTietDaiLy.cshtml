@@ -78,7 +78,9 @@
                         @Model.NoHienTai
                     </div>
                 </div>
-            </div>
+            </form>
+
+        </div>
             <div>
                 @if(User.IsInRole("QuanLyCongTy"))
                 {
@@ -87,7 +89,6 @@
                 }
                 <a asp-area="" asp-controller="DaiLy" asp-action="Index" class="btn btn-primary btn-sm scroll-click">Quay về danh sách</a>
             </div>
-            </form>
         </div>
     </div>
 </div>

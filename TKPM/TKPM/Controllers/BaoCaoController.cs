@@ -208,7 +208,7 @@ namespace TKPM.Controllers
                 document.Close();
                 writer.Close();
                 var constant = ms.ToArray();
-                return File(constant, "application/vnd", $"BaoCaoDoanhThu_{obj.Thang}.pdf");
+                return File(constant, "application/vnd", $"BaoCaoCongNo_{obj.Thang}.pdf");
             }
             return View();
         }

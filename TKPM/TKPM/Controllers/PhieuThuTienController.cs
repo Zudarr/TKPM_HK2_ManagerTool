@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using TKPM.Data;
 using TKPM.Models;
-using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
-using Microsoft.EntityFrameworkCore;
 
 namespace TKPM.Controllers
 {
@@ -23,6 +28,8 @@ namespace TKPM.Controllers
         {
             return RedirectToAction("LichSuThuTien");
         }
+
+
         public IActionResult LichSuThuTien()
         {
             var obj = _db.PhieuThuTiens.Include(c=>c.DaiLy).Include(d=>d.ApplicationUser).ToList();
@@ -49,14 +56,49 @@ namespace TKPM.Controllers
             _db.SaveChanges();
             return RedirectToAction("LichSuThuTien");
         }
+        public ActionResult ExportPDF_ChiTietThuTien_BM4(PhieuThuTien obj)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Document document = new Document(PageSize.A4, 25, 25, 30, 30);
+                PdfWriter writer = PdfWriter.GetInstance(document, ms);
+                document.Open();
+                //=============Start creating pdf content================
+                //Add heading
+                Paragraph para1 = new Paragraph($"PHIEU THU TIEN\n\n", new Font(Font.FontFamily.HELVETICA, 20, 1));
+                Paragraph para2 = new Paragraph($"Dai ly: {obj.DaiLy.TenDaiLy}\n".NonUnicode());
+                Paragraph para3 = new Paragraph($"Dia chi: {obj.DaiLy.DiaChiDaiLy}\n".NonUnicode());
+                Paragraph para4 = new Paragraph($"Dien thoai: {obj.DaiLy.DienThoaiDaiLy}\n");
 
+                Paragraph para5 = new Paragraph($"Email: {obj.DaiLy.EmailDaiLy}\n");
+                Paragraph para6 = new Paragraph($"Ngay thu tien: {obj.NgayThuTien.ToString()}\n");
+                Paragraph para7 = new Paragraph($"So tien thu: {obj.SoTienThu}\n");
+
+
+                para1.Alignment = Element.ALIGN_CENTER;
+                document.Add(para1);
+                document.Add(para2);
+                document.Add(para3);
+                document.Add(para4);
+                document.Add(para5);
+                document.Add(para6);
+                document.Add(para7);
+
+                //=============End creating pdf content================
+                document.Close();
+                writer.Close();
+                var constant = ms.ToArray();
+                return File(constant, "application/vnd", $"PhieuThuTien.pdf");
+            }
+            return View();
+        }
         public IActionResult ChiTietThuTien(int? id)
         {
             if(id == null)
             {
                 return NotFound();
             }
-            var obj=_db.PhieuThuTiens.Find(id);
+            var obj=_db.PhieuThuTiens.Include(c => c.DaiLy).SingleOrDefault(c=>c.Id==id);
             return View("ChiTietThuTien", obj);
         }
         [Authorize(Roles = "QuanLyCongTy")]
