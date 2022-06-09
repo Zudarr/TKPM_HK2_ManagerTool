@@ -1,4 +1,5 @@
 ﻿@model TKPM.Models.PhieuThuTien
+@using TKPM.Models
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -15,21 +16,14 @@
                 </div>
                 <form method="post" asp-action="Update">
                     <div class="form-group row">
-                        <label class="col-sm-12 col-md-2 col-form-label"  asp-for="IdDaiLy">Đại lý</label>
+                        <label class="col-sm-12 col-md-2 col-form-label" asp-for="IdDaiLy">Đại lý</label>
                         <div class="col-sm-12 col-md-10">
-                            <input class="form-control"
-                                   type="text"
-                                   placeholder="" asp-for="IdDaiLy"/>
-                            <span></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-12 col-md-2 col-form-label"  asp-for="IdNguoiThuTien">Người tạo phiếu thu</label>
-                        <div class="col-sm-12 col-md-10">
-                            <input class="form-control"
-                                   type="text"
-                                   placeholder="" asp-for="IdNguoiThuTien"/>
-                            <span></span>
+                            <select asp-for="IdDaiLy">
+                              @foreach(DaiLy modelDaiLy in @ViewData["DaiLy"] as List<DaiLy>)
+                                {
+                                    <option value=@modelDaiLy.Id>@modelDaiLy.TenDaiLy</option>
+                                }
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">

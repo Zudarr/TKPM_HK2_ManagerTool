@@ -58,10 +58,7 @@
                                 </a>
                             </th>
                             <th scope="col">
-                                <a href="@Url.Action("Sort", new {sortOrder = ViewBag.MaDaiLySortParm})">
-                                    Mã đại lý
-                                    <i class="fa-solid fa-sort"></i>
-                                </a>
+                                Tên đại lý
                             </th>
                             <th scope="col">
                                 <a href="@Url.Action("Sort", new {sortOrder = ViewBag.NgaySortParm})">
@@ -91,7 +88,7 @@
                         {
                             <tr>
                             <th>@obj.Id</th>
-                            <td>@obj.IdDaiLy</td>
+                            <td>@obj.DaiLy.TenDaiLy</td>
                             <td>@obj.NgayThuTien</td>
                             <td>@obj.IdNguoiThuTien</td>
                             <td>@obj.SoTienThu</td>
