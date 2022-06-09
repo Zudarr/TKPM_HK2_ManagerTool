@@ -10,6 +10,7 @@ namespace TKPM.Models
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Required]
         public string TenDaiLy { get; set; }
         public int LoaiDaiLy { get; set; }
         public string DienThoaiDaiLy { get; set; }

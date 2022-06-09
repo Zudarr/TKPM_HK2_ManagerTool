@@ -1,14 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using TKPM.Data;
 using TKPM.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace TKPM.Controllers
 {
     [Authorize]
     public class PhieuThuTienController : Controller
     {
+        private string UserID { get; set; }
         private readonly ApplicationDbContext _db;
         public PhieuThuTienController(ApplicationDbContext db)
         {
@@ -20,12 +25,14 @@ namespace TKPM.Controllers
         }
         public IActionResult LichSuThuTien()
         {
-            var obj = _db.PhieuThuTiens.ToList();
+            var obj = _db.PhieuThuTiens.Include(c=>c.DaiLy).Include(d=>d.ApplicationUser).ToList();
             return View("LichSuThuTien",obj);
         }
         [Authorize(Roles = "QuanLyCongTy,QuanLyKho")]
         public IActionResult LapPhieuThuTien()
         {
+            ViewData["DaiLy"]= _db.DaiLys.ToList();
+            UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return View("TaoPhieuThuTien");
         }
         [Authorize(Roles = "QuanLyCongTy,QuanLyKho")]
@@ -33,6 +40,11 @@ namespace TKPM.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(PhieuThuTien obj)
         {
+            obj.IdNguoiThuTien = UserID;
+            if(obj.DaiLy.NoHienTai-obj.SoTienThu<0)
+            {
+                return RedirectToAction("Create");
+            }
             _db.PhieuThuTiens.Add(obj);
             _db.SaveChanges();
             return RedirectToAction("LichSuThuTien");
@@ -78,7 +90,6 @@ namespace TKPM.Controllers
         public IActionResult Sort(string sortOrder)
         {
             ViewBag.MaPhieuSortParm = string.IsNullOrEmpty(sortOrder) ? "MaPhieu_desc" : "";
-            ViewBag.MaDaiLySortParm = sortOrder == "MaDaiLy" ? "MaDaiLy_desc" : "MaDaiLy";
             ViewBag.NguoiSortParm = sortOrder == "NguoiThuTien" ? "NguoiThuTien_desc" : "NguoiThuTien";
             ViewBag.NgaySortParm = sortOrder == "NgayThuTien" ? "NgayThuTien_desc" : "NgayThuTien";
             ViewBag.TienSortParm = sortOrder == "SoTienThu" ? "SoTienThu_desc" : "SoTienThu";
@@ -86,8 +97,6 @@ namespace TKPM.Controllers
             phieuThuTiens = sortOrder switch
             {
                 "MaPhieu_desc" => phieuThuTiens.OrderByDescending(p => p.Id),
-                "MaDaiLy_desc" => phieuThuTiens.OrderByDescending(p => p.IdDaiLy),
-                "MaDaiLy" => phieuThuTiens.OrderBy(p => p.IdDaiLy),
                 "NguoiThuTien_desc" => phieuThuTiens.OrderByDescending(p => p.IdNguoiThuTien),
                 "NguoiThuTien" => phieuThuTiens.OrderBy(p => p.IdNguoiThuTien),
                 "NgayThuTien_desc" => phieuThuTiens.OrderByDescending(p => p.NgayThuTien),

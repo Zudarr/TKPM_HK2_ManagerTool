@@ -9,6 +9,13 @@ namespace TKPM.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
         {
         }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<DaiLy>()
+                .HasIndex(u => u.TenDaiLy)
+                .IsUnique(true);
+            base.OnModelCreating(builder);
+        }
         public DbSet<DaiLy> DaiLys { get; set; }
         public DbSet<PhieuXuatHang> PhieuXuatHangs { get; set; }
         public DbSet<ChiTietXuatHang> ChiTietXuatHangs { get; set; }

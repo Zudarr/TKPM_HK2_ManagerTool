@@ -54,10 +54,20 @@
                         @Model.EmailDaiLy
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">Nợ hiện tại</label>
+                    <div class="col-sm-12 col-md-10">
+                        @Model.NoHienTai
+                    </div>
+                </div>
             </div>
             <div>
-                <a asp-area="" asp-controller="DaiLy" asp-action="Update" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Update</a>
-                <a asp-area="" asp-controller="DaiLy" asp-action="Delete" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Delete</a>
+                @if(User.IsInRole("QuanLyCongTy"))
+                {
+                    <a asp-area="" asp-controller="DaiLy" asp-action="Update" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Cập nhật đại lý</a>
+                    <a asp-area="" asp-controller="DaiLy" asp-action="Delete" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Xoá đại lý</a>
+                }
+                <a asp-area="" asp-controller="DaiLy" asp-action="Index" class="btn btn-primary btn-sm scroll-click">Quay về danh sách</a>
             </div>
         </div>
     </div>

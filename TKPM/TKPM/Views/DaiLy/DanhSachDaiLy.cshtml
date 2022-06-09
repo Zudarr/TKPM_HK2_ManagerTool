@@ -44,9 +44,12 @@
                         <h4 class="text-blue h4">Danh sach dai ly</h4>
                         <p>Add class <code>.table</code></p>
                     </div>
-                    <div class="pull-right">
-                        <a asp-area="" asp-controller="DaiLy" asp-action="ThemDaiLy" class="btn btn-primary btn-sm scroll-click"> Them Dai Ly</a>
-                    </div>
+                    @if(User.IsInRole("QuanLyCongTy"))
+                    {
+                        <div class="pull-right">
+                            <a asp-area="" asp-controller="DaiLy" asp-action="ThemDaiLy" class="btn btn-primary btn-sm scroll-click">Thêm đại lý</a>
+                        </div>
+                    }
                 </div>
                 <table class="table">
                     <thead>
