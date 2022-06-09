@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
 using System.Threading.Tasks;
 
 namespace TKPM.Properties
@@ -18,4 +20,5 @@ namespace TKPM.Properties
             return Task.CompletedTask;
         }
     }
+    
 }

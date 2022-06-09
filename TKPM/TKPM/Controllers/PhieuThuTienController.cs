@@ -18,7 +18,10 @@ namespace TKPM.Controllers
     [Authorize]
     public class PhieuThuTienController : Controller
     {
-        private string UserID { get; set; }
+        private string UserID { get
+            {
+                return User.FindFirstValue(ClaimTypes.NameIdentifier);
+            }}
         private readonly ApplicationDbContext _db;
         public PhieuThuTienController(ApplicationDbContext db)
         {
@@ -39,7 +42,6 @@ namespace TKPM.Controllers
         public IActionResult LapPhieuThuTien()
         {
             ViewData["DaiLy"]= _db.DaiLys.ToList();
-            UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return View("TaoPhieuThuTien");
         }
         [Authorize(Roles = "QuanLyCongTy,QuanLyKho")]
@@ -47,12 +49,29 @@ namespace TKPM.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(PhieuThuTien obj)
         {
-            obj.IdNguoiThuTien = UserID;
-            if(obj.DaiLy.NoHienTai-obj.SoTienThu<0)
+            if(obj.SoTienThu==null)
             {
-                return RedirectToAction("Create");
+                ViewData["ErrorRaised"] = "Raised";
+                ViewData["ErrorMessage"] = "Chưa nhập số tiền thu";
+                return RedirectToAction("LapPhieuThuTien");
             }
+            obj.IdNguoiThuTien = UserID;
+            var daiLyNeedToUpdate = _db.DaiLys.First(c => c.Id == obj.IdDaiLy);
+            if (daiLyNeedToUpdate == null)
+            {
+                ViewData["ErrorRaised"] = "Raised";
+                ViewData["ErrorMessage"] = "Không thể tìm được đại lý";
+                return RedirectToAction("LapPhieuThuTien");
+            }
+            if (daiLyNeedToUpdate.NoHienTai-obj.SoTienThu<0)
+            {
+                ViewData["ErrorRaised"]= "Raised";
+                ViewData["ErrorMessage"] = "Số tiền trả lớn hơn số tiền nợ";
+                return RedirectToAction("LapPhieuThuTien");
+            }
+            daiLyNeedToUpdate.NoHienTai -= obj.SoTienThu;
             _db.PhieuThuTiens.Add(obj);
+            _db.DaiLys.Update(daiLyNeedToUpdate);
             _db.SaveChanges();
             return RedirectToAction("LichSuThuTien");
         }
@@ -98,13 +117,34 @@ namespace TKPM.Controllers
             {
                 return NotFound();
             }
-            var obj=_db.PhieuThuTiens.Include(c => c.DaiLy).SingleOrDefault(c=>c.Id==id);
+            var obj=_db.PhieuThuTiens.Include(e => e.DaiLy).Include(f=>f.ApplicationUser).SingleOrDefault(c=>c.Id==id);
             return View("ChiTietThuTien", obj);
         }
         [Authorize(Roles = "QuanLyCongTy")]
         public IActionResult Delete(int?id)
         {
             var obj = _db.PhieuThuTiens.Find(id);
+            var daiLy=_db.DaiLys.First(c => c.Id == obj.IdDaiLy);
+            var noSauKhiXoa = daiLy.NoHienTai + obj.SoTienThu;
+            var noToiDa = 0;
+            if(daiLy.LoaiDaiLy==1)
+            {
+                var quyDinhDL1 = from danhSachQuyDinh in _db.QuyDinhs
+                                  where danhSachQuyDinh.MaNhanDien == "TN_DL1"
+                                  select danhSachQuyDinh.GiaTri;
+                noToiDa = quyDinhDL1.First();
+            }
+            else
+            {
+                var quyDinhDL2 =  from danhSachQuyDinh in _db.QuyDinhs
+                                  where danhSachQuyDinh.MaNhanDien == "TN_DL2"
+                                  select danhSachQuyDinh.GiaTri;
+                noToiDa= quyDinhDL2.First();
+            }
+            if(noSauKhiXoa>noToiDa)
+            {
+                return RedirectToAction("ChiTietThuTien", obj.Id);
+            }
             _db.PhieuThuTiens.Remove(obj);
             _db.SaveChanges();
             return RedirectToAction("Index");
@@ -124,6 +164,34 @@ namespace TKPM.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Update(PhieuThuTien obj)
         {
+            var noToiDa = 0;
+            var daiLy=_db.DaiLys.Find(obj.IdDaiLy);
+            if (daiLy.LoaiDaiLy == 1)
+            {
+                var quyDinhDL1 = from danhSachQuyDinh in _db.QuyDinhs
+                                 where danhSachQuyDinh.MaNhanDien == "TN_DL1"
+                                 select danhSachQuyDinh.GiaTri;
+                noToiDa = quyDinhDL1.First();
+            }
+            else
+            {
+                var quyDinhDL2 = from danhSachQuyDinh in _db.QuyDinhs
+                                 where danhSachQuyDinh.MaNhanDien == "TN_DL2"
+                                 select danhSachQuyDinh.GiaTri;
+                noToiDa = quyDinhDL2.First();
+            }
+
+            var oldPhieuThuTien=_db.PhieuThuTiens.Find(obj.Id);
+            var tienBanDau = daiLy.NoHienTai+oldPhieuThuTien.SoTienThu;
+            var tienNoSauUpdate = tienBanDau - obj.SoTienThu;
+
+            if(tienNoSauUpdate<0||tienNoSauUpdate>noToiDa)
+            {
+                return RedirectToAction("ChiTietThuTien",obj.Id);
+            }
+            daiLy.NoHienTai = tienNoSauUpdate;
+
+            _db.DaiLys.Update(daiLy);
             _db.PhieuThuTiens.Update(obj);
             _db.SaveChanges();
             return RedirectToAction("LichSuThuTien");

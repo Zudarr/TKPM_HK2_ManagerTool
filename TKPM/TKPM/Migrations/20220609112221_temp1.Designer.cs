@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TKPM.Data;
 
 namespace TKPM.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220609112221_temp1")]
+    partial class temp1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -266,7 +268,7 @@ namespace TKPM.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("MaNguoiQuanLy")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("NgayTiepNhan")
                         .HasColumnType("datetime2");
@@ -282,8 +284,6 @@ namespace TKPM.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MaNguoiQuanLy");
 
                     b.HasIndex("TenDaiLy")
                         .IsUnique();
@@ -472,15 +472,6 @@ namespace TKPM.Migrations
                     b.Navigation("HangHoa");
 
                     b.Navigation("PhieuXuatHang");
-                });
-
-            modelBuilder.Entity("TKPM.Models.DaiLy", b =>
-                {
-                    b.HasOne("TKPM.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("MaNguoiQuanLy");
-
-                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("TKPM.Models.PhieuThuTien", b =>

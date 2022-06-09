@@ -19,6 +19,8 @@ namespace TKPM.Models
         public DateTime NgayTiepNhan { get; set; }
         public string EmailDaiLy { get; set; }
         public int NoHienTai { get; set; }
-        public int MaNguoiQuanLy { get; set; }
-}
+        [ForeignKey("ApplicationUser")]
+        public string MaNguoiQuanLy { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
+    }
 }

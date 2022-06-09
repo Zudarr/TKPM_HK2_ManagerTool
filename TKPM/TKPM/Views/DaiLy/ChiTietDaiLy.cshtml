@@ -12,7 +12,7 @@
                 <div class="pd-20 card-box mb-30">
                     <div class="clearfix">
                         <div class="pull-left">
-                            <h4 class="text-blue h4">Thêm đại lý</h4>
+                            <h4 class="text-blue h4">Chi tiết đại lý</h4>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -57,6 +57,18 @@
                             @Model.EmailDaiLy
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label">Nợ hiện tại</label>
+                        <div class="col-sm-12 col-md-10">
+                            @Model.NoHienTai
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label">Tên người quản lý chi nhánh</label>
+                        <div class="col-sm-12 col-md-10">
+                            @Model.ApplicationUser.HoVaTen
+                        </div>
+                    </div>
                     <input type="hidden" asp-for="@Model.TenDaiLy">
                     <input type="hidden" asp-for="@Model.LoaiDaiLy">
                     <input type="hidden" asp-for="@Model.DienThoaiDaiLy">
@@ -68,27 +80,15 @@
 
 
                 <div>
-                    <a asp-area="" asp-controller="DaiLy" asp-action="Update" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Update</a>
-                    <input type="submit" value="Xuất PDF" asp-action="ExportPDF_ChiTietDaiLy_BM1" class="btn btn-primary btn-sm scroll-click" />
-                    <a asp-area="" asp-controller="DaiLy" asp-action="Delete" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Delete</a>
+                    @if(User.IsInRole("QuanLyCongTy"))
+                    {
+                        <a asp-area="" asp-controller="DaiLy" asp-action="Update" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Cập nhật đại lý</a>
+                        <a asp-area="" asp-controller="DaiLy" asp-action="Delete" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Xoá đại lý</a>
+                        <input type="submit" value="Xuất PDF" asp-action="ExportPDF_ChiTietDaiLy_BM1" class="btn btn-primary btn-sm scroll-click" />
+                    }
+                    <a asp-area="" asp-controller="DaiLy" asp-action="Index" class="btn btn-primary btn-sm scroll-click">Quay về danh sách</a>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Nợ hiện tại</label>
-                    <div class="col-sm-12 col-md-10">
-                        @Model.NoHienTai
-                    </div>
-                </div>
+                
             </form>
-
-        </div>
-            <div>
-                @if(User.IsInRole("QuanLyCongTy"))
-                {
-                    <a asp-area="" asp-controller="DaiLy" asp-action="Update" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Cập nhật đại lý</a>
-                    <a asp-area="" asp-controller="DaiLy" asp-action="Delete" asp-route-Id="@Model.Id" class="btn btn-primary btn-sm scroll-click">Xoá đại lý</a>
-                }
-                <a asp-area="" asp-controller="DaiLy" asp-action="Index" class="btn btn-primary btn-sm scroll-click">Quay về danh sách</a>
-            </div>
-        </div>
     </div>
 </div>
