@@ -179,7 +179,7 @@ namespace TKPM.Controllers
                 document.Close();
                 writer.Close();
                 var constant = ms.ToArray();
-                return File(constant, "application/vnd", "first.pdf");
+                return File(constant, "application/vnd", "PhieuXuatHang.pdf");
             }
             return View();
         }
