@@ -37,6 +37,7 @@
                             </tr>
                         </thead>
                         <input type="hidden" asp-for="@Model.NgayLapPhieuXuatHang">
+                        <input type="hidden" asp-for="@Model.DaiLy.TenDaiLy">
                         <tbody>
                             @for (int i = 0; i < @Model.ChiTietXuatHangs.Count(); i++)
                             {
@@ -44,6 +45,8 @@
                                 <input type="hidden" asp-for="@Model.ChiTietXuatHangs[i].Id">
                                 <input type="hidden" asp-for="@Model.ChiTietXuatHangs[i].PhieuXuatHangId">
                                 <input type="hidden" asp-for="@Model.ChiTietXuatHangs[i].HangHoa.DonGia">
+                                <input type="hidden" asp-for="@Model.ChiTietXuatHangs[i].HangHoa.TenHang">
+                                <input type="hidden" asp-for="@Model.ChiTietXuatHangs[i].HangHoa.DonViTinh">
                                 <tr>
                                     <th>@i</th>
                                     <td>@Model.ChiTietXuatHangs[i].HangHoa.TenHang</td>
@@ -58,8 +61,8 @@
 
 
                     <div class="center">
-                        <input type="submit" value="Update"
-                               class="btn btn-primary btn-sm scroll-click" />
+                        <input type="submit" value="Update" class="btn btn-primary btn-sm scroll-click" />
+                        <input type="submit" value="Xuất PDF" asp-action="ExportPDF_ChiTietXuatHang_BM2" class="btn btn-primary btn-sm scroll-click" />
                         <a class="btn btn-primary btn-sm scroll-click" asp-action="Index">Quay ve</a>
                     </div>
                 </form>

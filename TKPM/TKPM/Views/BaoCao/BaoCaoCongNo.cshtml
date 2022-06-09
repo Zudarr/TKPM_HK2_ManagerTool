@@ -1,4 +1,4 @@
-﻿@model TKPM.Models.ViewModels.BaoCaoCongNoVM
+﻿@model TKPM.Models.BaoCaoCongNoVM
 
 @{
     ViewData["Title"] = "Create";
@@ -55,6 +55,8 @@
                     <div class="center">
                         <input type="submit" value="Update"
                                class="btn btn-primary btn-sm scroll-click" />
+                        <input type="submit" value="Xuất PDF" asp-action="ExportPDF_BaoCaoCongNo_BM5_2" class="btn btn-primary btn-sm scroll-click" />
+
                         <a class="btn btn-primary btn-sm scroll-click" asp-action="Index">Quay ve</a>
                     </div>
                 </form>
