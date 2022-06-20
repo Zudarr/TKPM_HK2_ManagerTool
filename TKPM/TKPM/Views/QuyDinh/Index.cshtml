@@ -36,7 +36,7 @@
                                 <td>@item.NoiDung</td>
                                 <td>@item.GiaTri</td>
                                 <td>
-                                    @if (@item.Changeable == true)
+                                    @if (@item.Changeable == true && User.IsInRole("QuanLyCongTy"))
                                     {
                                         <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm scroll-click">Chỉnh sửa</a>
                                     }

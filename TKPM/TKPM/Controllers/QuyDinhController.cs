@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using TKPM.Models;
 
 namespace TKPM.Controllers
 {
+    [Authorize]
     public class QuyDinhController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -28,7 +30,7 @@ namespace TKPM.Controllers
             }
             return View(quyDinh.ToList());
         }
-
+        [Authorize(Roles = "QuanLyCongTy")]
         public IActionResult Edit(int? id)
         {
             if (id == null || id == 0)
@@ -38,7 +40,7 @@ namespace TKPM.Controllers
             var quyDinh = _db.QuyDinhs.FirstOrDefault(q => q.ID == id);
             return View("SuaQuyDinh", quyDinh);
         }
-
+        [Authorize(Roles = "QuanLyCongTy")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(QuyDinh obj)

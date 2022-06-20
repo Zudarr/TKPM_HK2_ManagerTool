@@ -308,19 +308,22 @@
         <div class="menu-block customscroll">
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
-                    <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-edit2"></span><span class="mtext">Đại lý</span>
-                        </a>
-                        <ul class="submenu">
-                            <li><a asp-area="" asp-controller="DaiLy" asp-action="DanhSachDaiLy">Danh sách đại lý</a></li>
-                            @if(User.IsInRole("QuanLyCongTy"))
-                            {
-                                <li><a asp-area="" asp-controller="DaiLy" asp-action="ThemDaiLy">Thêm đại lý</a></li>
-                            }
-                            <li><a asp-area="" asp-controller="DaiLy" asp-action="TraCuuDaiLy">Tra cứu đại lý</a></li>
-                        </ul>
-                    </li>
+                    @if(User.Identity.IsAuthenticated)
+                    {
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon dw dw-edit2"></span><span class="mtext">Đại lý</span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a asp-area="" asp-controller="DaiLy" asp-action="DanhSachDaiLy">Danh sách đại lý</a></li>
+                                @if(User.IsInRole("QuanLyCongTy"))
+                                {
+                                    <li><a asp-area="" asp-controller="DaiLy" asp-action="ThemDaiLy">Thêm đại lý</a></li>
+                                }
+                                <li><a asp-area="" asp-controller="DaiLy" asp-action="TraCuuDaiLy">Tra cứu đại lý</a></li>
+                            </ul>
+                        </li>
+                    }
                     @if(User.IsInRole("QuanLyKho,")||User.IsInRole("QuanLyCongTy")||User.IsInRole("QuanLyChiNhanh"))
                     {
                         <li class="dropdown">
@@ -363,23 +366,41 @@
                             </ul>
                         </li>
                     }
-                    <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-paint-brush"></span><span class="mtext">Quy Định</span>
-                        </a>
-                        <ul class="submenu">
-                            <li><a asp-area="" asp-controller="QuyDinh" asp-action="Index">Danh sách quy định</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle">
-                            <span class="micon dw dw-apartment"></span><span class="mtext">Hàng hóa</span>
-                        </a>
-                        <ul class="submenu">
-                            <li><a asp-area="" asp-controller="HangHoa" asp-action="Index">Danh sách hàng hóa</a></li>
-                            <li><a asp-area="" asp-controller="HangHoa" asp-action="Create">Thêm mặt hàng mới</a></li>
-                        </ul>
-                    </li>
+                    @if(User.Identity.IsAuthenticated)
+                    {
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon dw dw-paint-brush"></span><span class="mtext">Quy Định</span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a asp-area="" asp-controller="QuyDinh" asp-action="Index">Danh sách quy định</a></li>
+                            </ul>
+                        </li>
+                    }
+                    @if(User.IsInRole("QuanLyKho")||User.IsInRole("QuanLyCongTy"))
+                    {
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon dw dw-apartment"></span><span class="mtext">Hàng hóa</span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a asp-area="" asp-controller="HangHoa" asp-action="Index">Danh sách hàng hóa</a></li>
+                                <li><a asp-area="" asp-controller="HangHoa" asp-action="Create">Thêm mặt hàng mới</a></li>
+                            </ul>
+                        </li>
+                    }
+                    @if(User.Identity.IsAuthenticated)
+                    {
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle">
+                                <span class="micon dw dw-apartment"></span><span class="mtext">Tài khoản</span>
+                            </a>
+                            <ul class="submenu">
+                                <li><a asp-area="" asp-controller="TaiKhoan" asp-action="Index">Danh sách tài khoản</a></li>
+                                <li><a asp-area="Identity" asp-page="/Account/Register">Đăng kí tài khoản</a></li>
+                            </ul>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
