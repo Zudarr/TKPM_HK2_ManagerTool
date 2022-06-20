@@ -1,0 +1,56 @@
+﻿@using TKPM.Models
+@model IEnumerable<ApplicationUser>
+@{
+    ViewData["Title"] = "Danh sach tai khoan";
+}
+
+
+
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            <!-- basic table  Start -->
+            <form method="post">
+                <div class="pd-20 card-box mb-30">
+                    <div class="clearfix mb-20">
+                        <div class="pull-left">
+                            <h4 class="text-blue h4">Danh sách tài khoản</h4>
+                        </div>
+                        <div class="pull-right">
+                            <a asp-area="" asp-controller="DaiLy" asp-action="ThemDaiLy" class="btn btn-primary btn-sm scroll-click">Thêm tài khoản</a>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Tên tài khoản</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Chi tiết</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var obj in Model)
+                            {
+
+                                <tr>
+                                    <th>@obj.Id</th>
+                                    <td>@obj.HoVaTen</td>
+                                    <td>@obj.Email</td>
+                                    <td>
+                                        <a asp-area="" asp-controller="TaiKhoan" asp-action="XoaTaiKhoan" asp-route-Id="@obj.Id" class="btn btn-primary btn-sm scroll-click">Xoá tài khoản</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div>
+                        <input type="submit" value="Xuất PDF" asp-action="ExportPDF_DanhSachDaiLy_BM3" class="btn btn-primary btn-sm scroll-click" />
+                    </div>
+                </div>
+            </form>
+            <!-- basic table  End -->
+        </div>
+
+    </div>
+</div>
