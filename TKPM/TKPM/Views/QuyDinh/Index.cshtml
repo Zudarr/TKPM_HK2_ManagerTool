@@ -12,7 +12,7 @@
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix mb-20">
                     <div class="pull-left">
-                        <h4 class="text-blue h4">Danh sach quy dinh</h4>
+                        <h4 class="text-blue h4">Danh sách quy định</h4>
                     </div>
                 </div>
                 <table class="table">
@@ -38,7 +38,7 @@
                                 <td>
                                     @if (@item.Changeable == true)
                                     {
-                                        <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm scroll-click">Edit</a>
+                                        <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm scroll-click">Chỉnh sửa</a>
                                     }
                                 </td>
                             </tr>

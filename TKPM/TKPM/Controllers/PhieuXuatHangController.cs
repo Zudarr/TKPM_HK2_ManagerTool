@@ -59,14 +59,25 @@ namespace TKPM.Controllers
             }
 
             var result=_db.Add(new PhieuXuatHang() { DaiLyId = obj.DaiLyId ,TongTriGia=TongTriGia});
-            _db.SaveChanges();
+            //_db.SaveChanges();
 
             for (int i = 0; i < obj.ChiTietXuatHangs.Count(); i++)
             {
                 ChiTietXuatHang chiTietXuatHang = new ChiTietXuatHang() { HangHoaId = obj.ChiTietXuatHangs[i].HangHoaId, SoLuong = obj.ChiTietXuatHangs[i].SoLuong,PhieuXuatHangId=result.Entity.ID};
                 _db.Add(chiTietXuatHang);
-                _db.SaveChanges();
+                //_db.SaveChanges();
+
             }
+
+            //Cập nhật nợ cho đại lý
+            DaiLy daiLy = _db.DaiLys.FirstOrDefault(c => c.Id == obj.DaiLyId);
+            daiLy.NoHienTai += TongTriGia;
+
+            //Nợ quá quy định thì không được tao
+            if((daiLy.LoaiDaiLy == 1 && daiLy.NoHienTai > 2000000) || (daiLy.LoaiDaiLy == 2 && daiLy.NoHienTai > 5000000))
+                return RedirectToAction("Index");
+            _db.Update(daiLy);
+            _db.SaveChanges();
             return RedirectToAction("Index");
 
         }
