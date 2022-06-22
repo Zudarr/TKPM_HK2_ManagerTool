@@ -59,7 +59,7 @@ namespace TKPM.Controllers
             }
 
             var result=_db.Add(new PhieuXuatHang() { DaiLyId = obj.DaiLyId ,TongTriGia=TongTriGia});
-            //_db.SaveChanges();
+            _db.SaveChanges();
 
             for (int i = 0; i < obj.ChiTietXuatHangs.Count(); i++)
             {
