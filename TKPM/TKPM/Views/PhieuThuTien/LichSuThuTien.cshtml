@@ -19,6 +19,19 @@
                         <a asp-area="" asp-controller="PhieuThuTien" asp-action="LapPhieuThuTien" class="btn btn-primary btn-sm scroll-click"> Lập phiếu thu tiền</a>
                     </div>
                 </div>
+                <form method="get" asp-action="TraCuuPhieuThuTien">
+                    <div class="pd-20 card-box mb-30">
+                        <div class="pull-left">
+                            <h4 class="text-blue h4">Tra cứu</h4>
+                        </div><br>
+                        <div class="input-group mb-3">
+                            <div style="width:300px">
+                                <input type="search" class="form-control" aria-label="ID" name="id">
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Tìm kiếm"/>
+                        </div>
+                    </div>
+                </form>
                 <table class="table">
                     <thead>
                         <tr>
@@ -70,7 +83,6 @@
                         }
                     </tbody>
                 </table>
-
             </div>
             <!-- basic table  End -->
         </div>

@@ -64,7 +64,7 @@ namespace TKPM
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=DaiLy}/{action=DanhSachDaiLy}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

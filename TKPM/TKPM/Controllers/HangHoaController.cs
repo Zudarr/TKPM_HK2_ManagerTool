@@ -64,10 +64,10 @@ namespace TKPM.Controllers
                 .GroupBy(h => h.DonViTinh)
                 .Count();
             var maxMH = _db.QuyDinhs.FirstOrDefault(sl => sl.MaNhanDien == "SL_MH").GiaTri;
-            var maxDVTDVT = _db.QuyDinhs.FirstOrDefault(sl => sl.MaNhanDien == "SL_DVT").GiaTri;
-            if (soLuongDonViTinh > maxDVTDVT || soLuongMatHang > maxMH)
+            var maxDVT = _db.QuyDinhs.FirstOrDefault(sl => sl.MaNhanDien == "SL_DVT").GiaTri;
+            if (soLuongDonViTinh > maxDVT || soLuongMatHang > maxMH)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
             _db.HangHoas.Add(obj);
             _db.SaveChanges();

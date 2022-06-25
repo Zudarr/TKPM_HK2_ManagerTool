@@ -203,7 +203,7 @@ namespace TKPM.Controllers
             ViewBag.NguoiSortParm = sortOrder == "NguoiThuTien" ? "NguoiThuTien_desc" : "NguoiThuTien";
             ViewBag.NgaySortParm = sortOrder == "NgayThuTien" ? "NgayThuTien_desc" : "NgayThuTien";
             ViewBag.TienSortParm = sortOrder == "SoTienThu" ? "SoTienThu_desc" : "SoTienThu";
-            var phieuThuTiens = from p in _db.PhieuThuTiens select p;
+            var phieuThuTiens = from p in _db.PhieuThuTiens.Include(c => c.DaiLy).Include(d => d.ApplicationUser) select p;
             phieuThuTiens = sortOrder switch
             {
                 "MaPhieu_desc" => phieuThuTiens.OrderByDescending(p => p.Id),
@@ -216,6 +216,16 @@ namespace TKPM.Controllers
                 _ => phieuThuTiens.OrderBy(d => d.Id),
             };
             return View("LichSuThuTien", phieuThuTiens);
+        }
+
+        public IActionResult TraCuuPhieuThuTien(string id)
+        {
+            var PhieuThuTiens = from d in _db.PhieuThuTiens.Include(c => c.DaiLy).Include(d => d.ApplicationUser) select d;
+            if (!string.IsNullOrEmpty(id))
+            {
+                PhieuThuTiens = PhieuThuTiens.Where(d => d.Id == int.Parse(id));
+            }
+            return View("LichSuThuTien", PhieuThuTiens);
         }
     }
 }
