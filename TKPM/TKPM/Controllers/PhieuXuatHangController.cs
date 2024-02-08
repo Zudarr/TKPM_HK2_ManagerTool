@@ -51,34 +51,56 @@ namespace TKPM.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(PhieuXuatHang obj)
         {
-            //Tính lại tổng tiền của phiếu
-            int TongTriGia = 0;
-            foreach (ChiTietXuatHang chiTietXuatHang in obj.ChiTietXuatHangs)
+            using (var transaction = _db.Database.BeginTransaction())
             {
-                TongTriGia += chiTietXuatHang.SoLuong * chiTietXuatHang.HangHoa.DonGia;
+                try
+                {
+                    //Tính lại tổng tiền của phiếu
+                    int TongTriGia = 0;
+                    foreach (ChiTietXuatHang chiTietXuatHang in obj.ChiTietXuatHangs)
+                    {
+                        TongTriGia += chiTietXuatHang.SoLuong * chiTietXuatHang.HangHoa.DonGia;
+                    }
+                    var result = _db.Add(new PhieuXuatHang() { DaiLyId = obj.DaiLyId, TongTriGia = TongTriGia });
+                    _db.SaveChanges();
+
+                    for (int i = 0; i < obj.ChiTietXuatHangs.Count(); i++)
+                    {
+                        ChiTietXuatHang chiTietXuatHang = new ChiTietXuatHang() { HangHoaId = obj.ChiTietXuatHangs[i].HangHoaId, SoLuong = obj.ChiTietXuatHangs[i].SoLuong, PhieuXuatHangId = result.Entity.ID };
+                        //cập nhật sl hàng tồn kho
+                        HangHoa hangHoa = _db.HangHoas.FirstOrDefault(hh => hh.Id == obj.ChiTietXuatHangs[i].HangHoaId);
+                        hangHoa.SoLuongTrongKho-=obj.ChiTietXuatHangs[i].SoLuong;
+                        
+                        _db.Add(chiTietXuatHang);
+                        //_db.SaveChanges();
+
+                    }
+
+                    //Cập nhật nợ cho đại lý
+                    DaiLy daiLy = _db.DaiLys.FirstOrDefault(c => c.Id == obj.DaiLyId);
+                    daiLy.NoHienTai += TongTriGia;
+
+                    //Nợ quá quy định thì không được tao
+                    if ((daiLy.LoaiDaiLy == 1 && daiLy.NoHienTai > 2000000) || (daiLy.LoaiDaiLy == 2 && daiLy.NoHienTai > 5000000))
+                    {
+                        transaction.Rollback();
+                        return RedirectToAction("Index");
+                    }
+                    _db.Update(daiLy);
+                    _db.SaveChanges();
+                    transaction.Commit();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception)
+                {
+
+                    // Nếu có lỗi, rollback transaction và xử lý lỗi theo ý bạn
+                    transaction.Rollback();
+                    return RedirectToAction("Index");
+
+                }
+
             }
-
-            var result=_db.Add(new PhieuXuatHang() { DaiLyId = obj.DaiLyId ,TongTriGia=TongTriGia});
-            _db.SaveChanges();
-
-            for (int i = 0; i < obj.ChiTietXuatHangs.Count(); i++)
-            {
-                ChiTietXuatHang chiTietXuatHang = new ChiTietXuatHang() { HangHoaId = obj.ChiTietXuatHangs[i].HangHoaId, SoLuong = obj.ChiTietXuatHangs[i].SoLuong,PhieuXuatHangId=result.Entity.ID};
-                _db.Add(chiTietXuatHang);
-                //_db.SaveChanges();
-
-            }
-
-            //Cập nhật nợ cho đại lý
-            DaiLy daiLy = _db.DaiLys.FirstOrDefault(c => c.Id == obj.DaiLyId);
-            daiLy.NoHienTai += TongTriGia;
-
-            //Nợ quá quy định thì không được tao
-            if((daiLy.LoaiDaiLy == 1 && daiLy.NoHienTai > 2000000) || (daiLy.LoaiDaiLy == 2 && daiLy.NoHienTai > 5000000))
-                return RedirectToAction("Index");
-            _db.Update(daiLy);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
 
         }
         public ActionResult ExportPDF_ChiTietXuatHang_BM2(PhieuXuatHang obj)
